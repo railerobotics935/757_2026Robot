@@ -9,6 +9,10 @@
 
 #include "Constants.h"
 #include "subsystems/ExampleSubsystem.h"
+#include "subsystems/IntakeSubsystem.h"
+
+#include "commands/intake/SimpleIntake.h"
+#include "commands/intake/SimpleOuttake.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -21,15 +25,25 @@ class RobotContainer {
  public:
   RobotContainer();
 
-  frc2::CommandPtr GetAutonomousCommand();
+  //frc2::CommandPtr GetAutonomousCommand();
 
  private:
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  frc2::CommandXboxController m_driverController{
-      OperatorConstants::kDriverControllerPort};
+ // frc2::CommandXboxController m_driverController{
+      //OperatorConstants::kDriverControllerPort};
+  
+  //frc2::CommandXboxController m_operatorController{
+    //OperatorConstants::kOperatorControllerPort
+  //};
 
   // The robot's subsystems are defined here...
-  ExampleSubsystem m_subsystem;
+  IntakeSubsystem m_intakeSubsystem;
 
   void ConfigureBindings();
+
+  frc::XboxController m_driveController{OperatorConstants::kDriverControllerPort};
+  frc::XboxController m_operatorController{OperatorConstants::kOperatorControllerPort};
+  SimpleIntake m_simpleIntake{&m_intakeSubsystem};
+  SimpleOuttake m_simpleOuttake{&m_intakeSubsystem};
+
 };
