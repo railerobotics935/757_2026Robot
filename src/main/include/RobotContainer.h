@@ -40,9 +40,10 @@ class RobotContainer {
   IntakeSubsystem m_intakeSubsystem;
 
   void ConfigureBindings();
-
+  //controllers
   frc::XboxController m_driveController{OperatorConstants::kDriverControllerPort};
   frc::XboxController m_operatorController{OperatorConstants::kOperatorControllerPort};
+  
   SimpleIntake m_simpleIntake{&m_intakeSubsystem};
   SimpleOuttake m_simpleOuttake{&m_intakeSubsystem};
 
