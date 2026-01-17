@@ -14,6 +14,11 @@ RobotContainer::RobotContainer() {
 
   // Configure the button bindings
   ConfigureBindings();
+
+  // Set Default Commands for Subsystems
+  m_driveSubsystem.SetDefaultCommand(std::move(m_driveWithController));
+  m_intakeSubsystem.SetDefaultCommand(std::move(m_stopIntake));
+  m_shooterSubsystem.SetDefaultCommand(std::move(m_stopShooter));
 }
 
 void RobotContainer::ConfigureBindings() {

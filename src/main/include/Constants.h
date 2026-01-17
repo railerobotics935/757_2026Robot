@@ -33,15 +33,16 @@
  */
 
  #define BURNINTAKESPARKMAX
+ #define BURNSHOOTERSPARKMAX
 
 namespace RobotConstants {
 
 constexpr double kVoltageCompentationValue = 11.0;
 
 const units::meter_t kWheelBase =
-    0.6731_m; 
+    0.650875_m; 
 const units::meter_t kWheelWidth =
-    0.4953_m; 
+    0.4318_m; 
 
 
 }  // namespace RobotConstants
@@ -170,9 +171,20 @@ inline constexpr int kOperatorControllerPort = 1;
 
 namespace ControllerConstants {
 
+//Driver Controls
+//Xbox Controller
+//Driver Axis
+constexpr int kDriveLeftXIndex = 0;
+constexpr int kDriveLeftYIndex = 1;
+constexpr int kDriveRightXIndex = 4;
+
+//Operator Controls
+//Logitek controller
 //Operator Buttons
 constexpr int kIntakeButton = 8; //RT
-constexpr int kOuttakeButton = 7; //LT
+constexpr int kOuttakeButton = 6; //RB
+constexpr int kShooterButton = 7; //LT
+
 
 } //ControllerConstants
 
@@ -188,3 +200,16 @@ constexpr rev::spark::SparkMaxConfig::IdleMode kIntakeMotorIdleMode = rev::spark
 constexpr units::ampere_t kIntakeMotorCurrentLimit = 40_A;
 
 }  // namespace IntakeConstants
+
+namespace ShooterConstants {
+
+// Intake Motors
+constexpr int kShooterRightMotorID = 7;
+constexpr int kShooterLeftMotorID = 8;
+
+constexpr rev::spark::SparkLowLevel::MotorType kShooterMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
+constexpr rev::spark::SparkMaxConfig::IdleMode kShooterMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
+
+constexpr units::ampere_t kShooterMotorCurrentLimit = 40_A;
+
+}  // namespace ShooterConstants

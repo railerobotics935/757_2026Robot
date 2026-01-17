@@ -10,9 +10,16 @@
 #include "Constants.h"
 #include "subsystems/ExampleSubsystem.h"
 #include "subsystems/IntakeSubsystem.h"
+#include "subsystems/ShooterSubsystem.h"
+#include "subsystems/DriveSubsystem.h"
 
 #include "commands/intake/SimpleIntake.h"
 #include "commands/intake/SimpleOuttake.h"
+#include "commands/intake/StopIntake.h"
+#include "commands/shooter/SimpleShoot.h"
+#include "commands/shooter/StopShooter.h"
+#include "commands/drive/DriveWithController.h"
+
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -38,13 +45,19 @@ class RobotContainer {
 
   // The robot's subsystems are defined here...
   IntakeSubsystem m_intakeSubsystem;
+  ShooterSubsystem m_shooterSubsystem;
+  DriveSubsystem m_driveSubsystem;
 
   void ConfigureBindings();
   //controllers
   frc::XboxController m_driveController{OperatorConstants::kDriverControllerPort};
   frc::XboxController m_operatorController{OperatorConstants::kOperatorControllerPort};
-  
+
   SimpleIntake m_simpleIntake{&m_intakeSubsystem};
   SimpleOuttake m_simpleOuttake{&m_intakeSubsystem};
+  StopIntake m_stopIntake{&m_intakeSubsystem};
+  SimpleShoot m_simpleShoot{&m_shooterSubsystem};
+  StopShooter m_stopShooter{&m_shooterSubsystem};
+  DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
 
 };
