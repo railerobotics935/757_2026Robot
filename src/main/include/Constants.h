@@ -120,12 +120,12 @@ constexpr double kRotationalSlewRate = 8.0;  // percent per second (1 = 100%)
 constexpr int kFrontLeftTurningMotorPort = 29;
 constexpr int kFrontRightTurningMotorPort = 21;
 constexpr int kBackLeftTurningMotorPort = 11;
-constexpr int kBackRightTurningMotorPort = 19;
+constexpr int kBackRightTurningMotorPort = 12;
 
 constexpr int kFrontLeftDriveMotorPort = 28;
 constexpr int kFrontRightDriveMotorPort = 20;
 constexpr int kBackLeftDriveMotorPort = 10;
-constexpr int kBackRightDriveMotorPort = 18;
+constexpr int kBackRightDriveMotorPort = 13;
 
 
 //CANCoder id numbers
@@ -201,15 +201,14 @@ constexpr units::ampere_t kIntakeMotorCurrentLimit = 40_A;
 
 }  // namespace IntakeConstants
 
-namespace ShooterConstants {
+namespace StagerConstants {
 
-// Intake Motors
-constexpr int kShooterRightMotorID = 7;
-constexpr int kShooterLeftMotorID = 8;
+// Shooter Motors
+constexpr int kStagerMotorID = 17;
 
-constexpr rev::spark::SparkLowLevel::MotorType kShooterMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
-constexpr rev::spark::SparkMaxConfig::IdleMode kShooterMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
+constexpr rev::spark::SparkLowLevel::MotorType kStagerMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
+constexpr rev::spark::SparkMaxConfig::IdleMode kStagerMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
 
-constexpr units::ampere_t kShooterMotorCurrentLimit = 40_A;
+constexpr units::ampere_t kStagerMotorCurrentLimit = 40_A;
 
-}  // namespace ShooterConstants
+}  // namespace StagerConstants

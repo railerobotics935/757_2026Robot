@@ -10,7 +10,7 @@
 #include "Constants.h"
 #include "subsystems/ExampleSubsystem.h"
 #include "subsystems/IntakeSubsystem.h"
-#include "subsystems/ShooterSubsystem.h"
+#include "subsystems/StagerSubsystem.h"
 #include "subsystems/DriveSubsystem.h"
 
 #include "commands/intake/SimpleIntake.h"
@@ -43,21 +43,23 @@ class RobotContainer {
     //OperatorConstants::kOperatorControllerPort
   //};
 
-  // The robot's subsystems are defined here...
+  // The robot's subsystems are defined here
   IntakeSubsystem m_intakeSubsystem;
-  ShooterSubsystem m_shooterSubsystem;
+  StagerSubsystem m_stagerSubsystem;
   DriveSubsystem m_driveSubsystem;
 
   void ConfigureBindings();
-  //controllers
+  
+  // Controllers
   frc::XboxController m_driveController{OperatorConstants::kDriverControllerPort};
   frc::XboxController m_operatorController{OperatorConstants::kOperatorControllerPort};
 
-  SimpleIntake m_simpleIntake{&m_intakeSubsystem};
+  // Commands
+  SimpleIntake m_simpleIntake{&m_intakeSubsystem, &m_stagerSubsystem};
   SimpleOuttake m_simpleOuttake{&m_intakeSubsystem};
   StopIntake m_stopIntake{&m_intakeSubsystem};
-  SimpleShoot m_simpleShoot{&m_shooterSubsystem};
-  StopShooter m_stopShooter{&m_shooterSubsystem};
+  SimpleShoot m_simpleShoot{&m_stagerSubsystem};
+  StopShooter m_stopShooter{&m_stagerSubsystem};
   DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
 
 };

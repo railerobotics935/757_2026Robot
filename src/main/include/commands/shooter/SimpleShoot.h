@@ -5,7 +5,7 @@
 #include <frc2/command/CommandHelper.h>
 #include <frc/XboxController.h>
 
-#include "subsystems/ShooterSubsystem.h"
+#include "subsystems/StagerSubsystem.h"
 
 class SimpleShoot
   : public frc2::CommandHelper<frc2::Command, SimpleShoot> {
@@ -15,11 +15,11 @@ public:
    *
    * @param shooter The pointer to the shooter subsystem
    */
-  explicit SimpleShoot(ShooterSubsystem* intake);
+  explicit SimpleShoot(StagerSubsystem* intake);
 
   void Initialize() override;
   void End(bool interrupted) override;
   
 private:
-  ShooterSubsystem* m_shooter;
+  StagerSubsystem* m_shooter;
 };

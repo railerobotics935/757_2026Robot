@@ -13,19 +13,19 @@
 #include <iostream>
 #include <Constants.h>
 
-class ShooterSubsystem : public frc2::SubsystemBase {
+class StagerSubsystem : public frc2::SubsystemBase {
  public:
   /**
    * Picks up game pieces
   */
-  ShooterSubsystem();
+  StagerSubsystem();
 
   // Sets the motor's power (between -1.0 and 1.0).
   
   //void Periodic() override;
 
   
-  void SetShooterMotorPower(double power);
+  void SetStagerMotorPower(double power);
 
   /**
    * @return Direction intake motor is moving
@@ -35,7 +35,7 @@ class ShooterSubsystem : public frc2::SubsystemBase {
   /**
    * @return If light sensor has detected a coral
    */
-  //bool CoralInShooter();
+  //bool CoralInStager();
 
  private:
 
@@ -45,13 +45,12 @@ class ShooterSubsystem : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
 
   // Motor Controllers
-  rev::spark::SparkMax m_leftShooterSparkMax;
-  rev::spark::SparkMax m_rightShooterSparkMax;
+  rev::spark::SparkMax m_stagerSparkMax;
 
   // Light Sensor is a digital input in the DIO port (digital input output)
-  //frc::DigitalInput m_lightSensor{ShooterConstants::kLightSensorID};
+  //frc::DigitalInput m_lightSensor{StagerConstants::kLightSensorID};
 
 
   //Network Table Entry
-  //nt::NetworkTableEntry nte_coralInShooter;
+  //nt::NetworkTableEntry nte_Stager;
 };

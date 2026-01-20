@@ -45,8 +45,7 @@ class IntakeSubsystem : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
 
   // Motor Controllers
-  rev::spark::SparkMax m_topIntakeSparkMax;
-  rev::spark::SparkMax m_bottomIntakeSparkMax;
+  rev::spark::SparkMax m_intakeSparkMax;
 
   // Light Sensor is a digital input in the DIO port (digital input output)
   //frc::DigitalInput m_lightSensor{IntakeConstants::kLightSensorID};

@@ -18,7 +18,7 @@ RobotContainer::RobotContainer() {
   // Set Default Commands for Subsystems
   m_driveSubsystem.SetDefaultCommand(std::move(m_driveWithController));
   m_intakeSubsystem.SetDefaultCommand(std::move(m_stopIntake));
-  m_shooterSubsystem.SetDefaultCommand(std::move(m_stopShooter));
+  m_stagerSubsystem.SetDefaultCommand(std::move(m_stopShooter));
 }
 
 void RobotContainer::ConfigureBindings() {
@@ -27,7 +27,7 @@ void RobotContainer::ConfigureBindings() {
   frc2::JoystickButton intakeButton (&m_operatorController, ControllerConstants::kIntakeButton); 
   frc2::JoystickButton outakeButton (&m_operatorController, ControllerConstants::kOuttakeButton);
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-  intakeButton.WhileTrue(SimpleIntake{&m_intakeSubsystem}.ToPtr());
+  intakeButton.WhileTrue(SimpleIntake{&m_intakeSubsystem, &m_stagerSubsystem}.ToPtr());
   outakeButton.WhileTrue(SimpleOuttake{&m_intakeSubsystem}.ToPtr());
 
   // Schedule `ExampleMethodCommand` when the Xbox controller's B button is
