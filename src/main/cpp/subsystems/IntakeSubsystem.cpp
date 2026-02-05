@@ -8,7 +8,7 @@
 
 IntakeSubsystem::IntakeSubsystem() 
 
-: m_intakeSparkMax{IntakeConstants::kIntakeTopMotorID, IntakeConstants::kIntakeMotorType} {
+: m_intakeSparkMax{IntakeConstants::kIntakeMotorID, IntakeConstants::kIntakeMotorType} {
 
 
    #ifdef BURNINTAKESPARKMAX
@@ -33,11 +33,11 @@ IntakeSubsystem::IntakeSubsystem()
   #endif
 }
 
-/*
+
 void IntakeSubsystem::Periodic() {
-  nte_coralInIntake.SetBoolean(CoralInIntake());
+//  nte_coralInIntake.SetBoolean(CoralInIntake());
 }
-*/
+
 void IntakeSubsystem::SetIntakeMotorPower(double power) {
   // Sets the motor's power (between -1.0 and 1.0). 
   m_intakeSparkMax.Set(power);    

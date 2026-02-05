@@ -33,11 +33,11 @@ StagerSubsystem::StagerSubsystem()
   #endif
 }
 
-/*
+
 void StagerSubsystem::Periodic() {
-  nte_coralInStager.SetBoolean(CoralInStager());
+//  nte_coralInStager.SetBoolean(CoralInStager());
 }
-*/
+
 
 void StagerSubsystem::SetStagerMotorPower(double power) {
   // Sets the motor's power (between -1.0 and 1.0). 

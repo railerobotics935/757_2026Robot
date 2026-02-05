@@ -14,6 +14,7 @@
 #include <frc/kinematics/SwerveModuleState.h>
 #include <frc/trajectory/TrapezoidProfile.h>
 #include <frc/controller/ProfiledPIDController.h>
+#include <frc/AnalogEncoder.h>
 
 #include <rev/SparkAbsoluteEncoder.h>               // for through-hole encoder on Spark MAX
 #include <rev/SparkClosedLoopController.h>                 // for closed-loop control on Spark MAX 
@@ -21,15 +22,15 @@
 
 #include <rev/SparkMax.h>
 //#include "rev/SparkAnalogSensor.h"
-#include "ctre/phoenix6/CANCoder.hpp"
+//#include "ctre/phoenix6/CANCoder.hpp"
 
 #include "Constants.h"
 
-using namespace ctre::phoenix6;
+//using namespace ctre::phoenix6;
 
 class SwerveModule {
  public:
-  SwerveModule(const int drivingCANId, const int turningCANId, const int turnSensorCANId);
+  SwerveModule(const int drivingCANId, const int turningCANId, const int turnSensorCANId, const double moduleEncoderOffset);
 
   frc::SwerveModuleState GetState();
 
@@ -54,9 +55,11 @@ class SwerveModule {
   rev::spark::SparkMax m_drivingSparkMax;
   rev::spark::SparkMax m_turningSparkMax;
 
+  double m_moduleEncoderOffset;
+  
   rev::spark::SparkRelativeEncoder m_drivingEncoder = m_drivingSparkMax.GetEncoder();
   //rev::spark::SparkAbsoluteEncoder m_turningAbsoluteEncoder = m_turningSparkMax.GetAbsoluteEncoder();
-  hardware::CANcoder m_turningAbsoluteEncoder;
+  frc::AnalogEncoder m_turningAbsoluteEncoder;
 
   rev::spark::SparkClosedLoopController m_drivingPIDController = m_drivingSparkMax.GetClosedLoopController();
   

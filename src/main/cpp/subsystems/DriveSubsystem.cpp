@@ -32,22 +32,26 @@ using namespace pathplanner;
 DriveSubsystem::DriveSubsystem()
   : m_frontLeft{kFrontLeftDriveMotorPort,
                 kFrontLeftTurningMotorPort,
-                kFrontLeftCANCoderId},
+                kFrontLeftAnalogId,
+                ModuleConstants::kFrontLeftEncoderOffset},
 
     m_frontRight{
         kFrontRightDriveMotorPort,       
         kFrontRightTurningMotorPort,
-        kFrontRightCANCoderId},
+        kFrontRightAnalogId,
+        ModuleConstants::kFrontRightEncoderOffset},
     
     m_backLeft{
         kBackLeftDriveMotorPort,       
         kBackLeftTurningMotorPort,
-        kBackLeftCANCoderId},
+        kBackLeftAnalogId,
+        ModuleConstants::kBackLeftEncoderOffset},
 
     m_backRight{
         kBackRightDriveMotorPort,       
         kBackRightTurningMotorPort,  
-        kBackRightCANCoderId},
+        kBackRightAnalogId,
+        ModuleConstants::kBackRightEncoderOffset},
 
     m_odometry{m_driveKinematics,
                 m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw),
@@ -66,6 +70,7 @@ DriveSubsystem::DriveSubsystem()
                 
 {
 
+#if 0  
 RobotConfig config = RobotConfig::fromGUISettings();
 
 AutoBuilder::configure(
@@ -92,6 +97,7 @@ AutoBuilder::configure(
         this // Reference to this subsystem to set requirements
     );
 
+#endif
 
   // Initialize shuffleboard communication
   auto nt_inst = nt::NetworkTableInstance::GetDefault();
@@ -163,6 +169,7 @@ AutoBuilder::configure(
   m_robotAngleController.EnableContinuousInput(0, (std::numbers::pi * 2));
 
   m_timer.Restart();
+
 }
 
 // Returns true is the allience selected is red
@@ -187,10 +194,10 @@ void DriveSubsystem::Periodic() {
    // EstimatePoseWithApriltag();
   
   UpdateNTE();
-  GetTurningPIDParameters();
-  GetDrivingPIDParameters();
+//  GetTurningPIDParameters();
+//  GetDrivingPIDParameters();
 
-  //m_field.SetRobotPose(m_poseEstimator.GetEstimatedPosition());
+//  m_field.SetRobotPose(m_poseEstimator.GetEstimatedPosition());
 
   //m_robotAngleController.SetP(nte_ktp.GetDouble(4.5));
   //m_robotAngleController.SetI(nte_kti.GetDouble(0.002));

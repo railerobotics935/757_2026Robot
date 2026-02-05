@@ -9,7 +9,7 @@ StopIntake::StopIntake(IntakeSubsystem *intake) : m_intake{intake} {
 
 void StopIntake::Initialize() {
 #ifdef PRINTDEBUG
-  std::cout << "SimpleIntake Initialized\r\n";
+  std::cout << "StopIntake Initialized\r\n";
 #endif
   m_intake->SetIntakeMotorPower(0.0);
 }

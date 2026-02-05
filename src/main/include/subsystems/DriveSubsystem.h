@@ -364,7 +364,7 @@ private:
   frc::PIDController m_robotAngleController{DriveConstants::kRotationP, DriveConstants::kRotationI, DriveConstants::kRotationD};
 
   // Variables to internialy keep track of drive state
-  bool m_fieldRelative = true;
+  bool m_fieldRelative = false;
 
   // Create path to deploy directory
  // fs::path deployDirectory{frc::filesystem::GetDeployDirectory() + "/2025-reefscape.json"};

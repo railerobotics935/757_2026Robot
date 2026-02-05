@@ -13,7 +13,7 @@ public:
   /**
    * Creates a new StopShooter.
    *
-   * @param shooter The pointer to the shooter subsystem
+   * @param stager The pointer to the stager subsystem
    */
   explicit StopShooter(StagerSubsystem* intake);
 
@@ -21,5 +21,5 @@ public:
   void End(bool interrupted) override;
   
 private:
-  StagerSubsystem* m_shooter;
+  StagerSubsystem* m_stager;
 };

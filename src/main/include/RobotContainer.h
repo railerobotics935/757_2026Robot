@@ -58,7 +58,7 @@ class RobotContainer {
   SimpleIntake m_simpleIntake{&m_intakeSubsystem, &m_stagerSubsystem};
   SimpleOuttake m_simpleOuttake{&m_intakeSubsystem};
   StopIntake m_stopIntake{&m_intakeSubsystem};
-  SimpleShoot m_simpleShoot{&m_stagerSubsystem};
+  SimpleShoot m_simpleShoot{&m_stagerSubsystem, &m_intakeSubsystem};
   StopShooter m_stopShooter{&m_stagerSubsystem};
   DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
 

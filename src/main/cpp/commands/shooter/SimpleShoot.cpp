@@ -2,22 +2,25 @@
 #include "Constants.h"
 #include "commands/shooter/SimpleShoot.h"
 
-SimpleShoot::SimpleShoot(StagerSubsystem *shooter) : m_shooter{shooter} {
+SimpleShoot::SimpleShoot(StagerSubsystem *stager, IntakeSubsystem *intake) : m_stager{stager}, m_intake{intake} {
 
-  AddRequirements(m_shooter);
+  AddRequirements(m_stager);
+  AddRequirements(m_intake);
 }
 
 void SimpleShoot::Initialize() {
 #ifdef PRINTDEBUG
-  std::cout << "SimpleIntake Initialized\r\n";
+  std::cout << "SimpleShoot Initialized\r\n";
 #endif
-  m_shooter->SetStagerMotorPower(1.0);
+  m_stager->SetStagerMotorPower(1.0);
+  m_intake->SetIntakeMotorPower(-1.0);
 }
 
 
 void SimpleShoot::End(bool interrupted) {
 #ifdef PRINTDEBUG
-  std::cout << "SimpleIntake Ended\r\n";
+  std::cout << "SimpleShoot Ended\r\n";
 #endif
-  m_shooter->SetStagerMotorPower(0.0);
+  m_stager->SetStagerMotorPower(0.0);
+  m_intake->SetIntakeMotorPower(0.0);
 }

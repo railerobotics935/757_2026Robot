@@ -32,17 +32,20 @@
  * they are needed.
  */
 
- #define BURNINTAKESPARKMAX
- #define BURNSHOOTERSPARKMAX
+// #define BURNINTAKESPARKMAX
+// #define BURNSHOOTERSPARKMAX
+#define BURNMODULESPARKMAX
+#define PRINTDEBUG
+#define SETTURNINGZEROS
 
 namespace RobotConstants {
 
 constexpr double kVoltageCompentationValue = 11.0;
 
 const units::meter_t kWheelBase =
-    0.650875_m; 
+    0.6461_m; 
 const units::meter_t kWheelWidth =
-    0.4318_m; 
+    0.4556_m; 
 
 
 }  // namespace RobotConstants
@@ -82,19 +85,29 @@ constexpr units::radian_t kTurningEncoderPositionPIDMinInput = 0_rad;
 constexpr units::radian_t kTurningEncoderPositionPIDMaxInput =
     units::radian_t{kTurningEncoderPositionFactor};
 
-constexpr double kDrivingP = 0.1;
+constexpr double kDrivingP = 0.0;
 constexpr double kDrivingI = 0.0;
 constexpr double kDrivingD = 0.0;
 constexpr double kDrivingFF = (1 / kDriveWheelFreeSpeedRps);
 constexpr double kDrivingMinOutput = -1;
 constexpr double kDrivingMaxOutput = 1;
 
-constexpr double kTurningP = 8.0;
-constexpr double kTurningI = 0.01;
-constexpr double kTurningD = 0.004; //was originally 0.15
+constexpr double kTurningP = 5.5; //0.6*Kc
+constexpr double kTurningI = 0.0;  //Ki = 2*KP/Pc
+constexpr double kTurningD = 0.0; //was originally 0.004 0.125*Kp/Pc
 constexpr double kTurningFF = 0;
 constexpr double kTurningMinOutput = -1;
 constexpr double kTurningMaxOutput = 1;
+
+constexpr double kFrontLeftEncoderOffset = (5.87 / (std::numbers::pi * 2));
+constexpr double kFrontRightEncoderOffset = (3.52 / (std::numbers::pi * 2));
+constexpr double kBackLeftEncoderOffset = (5.00 / (std::numbers::pi * 2));
+constexpr double kBackRightEncoderOffset = (2.76 / (std::numbers::pi * 2));
+
+//constexpr double kFrontLeftEncoderOffset = 0;
+//constexpr double kFrontRightEncoderOffset = 0;
+//constexpr double kBackLeftEncoderOffset = 0;
+//constexpr double kBackRightEncoderOffset = 0;
 
 constexpr rev::spark::SparkMaxConfig::IdleMode kDrivingMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
 constexpr rev::spark::SparkMaxConfig::IdleMode kTurningMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
@@ -117,22 +130,22 @@ constexpr double kMagnitudeSlewRate = 7.0;   // percent per second (1 = 100%)
 constexpr double kRotationalSlewRate = 8.0;  // percent per second (1 = 100%)
 
 // CAN Sparkmax id numbers
-constexpr int kFrontLeftTurningMotorPort = 29;
-constexpr int kFrontRightTurningMotorPort = 21;
-constexpr int kBackLeftTurningMotorPort = 11;
-constexpr int kBackRightTurningMotorPort = 12;
+constexpr int kFrontLeftTurningMotorPort = 22;
+constexpr int kFrontRightTurningMotorPort = 17;
+constexpr int kBackLeftTurningMotorPort = 23;
+constexpr int kBackRightTurningMotorPort = 16;
 
-constexpr int kFrontLeftDriveMotorPort = 28;
-constexpr int kFrontRightDriveMotorPort = 20;
-constexpr int kBackLeftDriveMotorPort = 10;
-constexpr int kBackRightDriveMotorPort = 13;
+constexpr int kFrontLeftDriveMotorPort = 21;
+constexpr int kFrontRightDriveMotorPort = 18;
+constexpr int kBackLeftDriveMotorPort = 24;
+constexpr int kBackRightDriveMotorPort = 15;
 
 
-//CANCoder id numbers
-constexpr int kFrontLeftCANCoderId = 4;
-constexpr int kFrontRightCANCoderId = 3;
-constexpr int kBackLeftCANCoderId = 1;
-constexpr int kBackRightCANCoderId = 2;
+//Analog id numbers
+constexpr int kFrontLeftAnalogId = 0;
+constexpr int kFrontRightAnalogId = 3;
+constexpr int kBackLeftAnalogId = 1;
+constexpr int kBackRightAnalogId = 2;
 
 // PID Controller for the auto rotation of the robot
 constexpr double kRotationP = 2.5;
@@ -191,8 +204,7 @@ constexpr int kShooterButton = 7; //LT
 namespace IntakeConstants {
 
 // Intake Motors
-constexpr int kIntakeTopMotorID = 18;
-constexpr int kIntakeBottomMotorID = 19;
+constexpr int kIntakeMotorID = 20;
 
 constexpr rev::spark::SparkLowLevel::MotorType kIntakeMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
 constexpr rev::spark::SparkMaxConfig::IdleMode kIntakeMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
@@ -204,7 +216,7 @@ constexpr units::ampere_t kIntakeMotorCurrentLimit = 40_A;
 namespace StagerConstants {
 
 // Shooter Motors
-constexpr int kStagerMotorID = 17;
+constexpr int kStagerMotorID = 19;
 
 constexpr rev::spark::SparkLowLevel::MotorType kStagerMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
 constexpr rev::spark::SparkMaxConfig::IdleMode kStagerMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;

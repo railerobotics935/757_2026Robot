@@ -22,7 +22,7 @@ class StagerSubsystem : public frc2::SubsystemBase {
 
   // Sets the motor's power (between -1.0 and 1.0).
   
-  //void Periodic() override;
+  void Periodic() override;
 
   
   void SetStagerMotorPower(double power);

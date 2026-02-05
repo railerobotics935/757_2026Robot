@@ -3,10 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Robot.h"
+#include <iostream>
 
-#include <frc2/command/CommandScheduler.h>
+//#include <frc2/command/CommandScheduler.h>
 
-Robot::Robot() {}
+//Robot::Robot() {}
+
+void Robot::RobotInit() {}
 
 /**
  * This function is called every 20 ms, no matter the mode. Use
@@ -17,6 +20,7 @@ Robot::Robot() {}
  * LiveWindow and SmartDashboard integrated updating.
  */
 void Robot::RobotPeriodic() {
+//  std::cout << "Robot Periodic Running" << std::endl;
   frc2::CommandScheduler::GetInstance().Run();
 }
 
@@ -33,13 +37,13 @@ void Robot::DisabledPeriodic() {}
  * This autonomous runs the autonomous command selected by your {@link
  * RobotContainer} class.
  */
-//void Robot::AutonomousInit() {
+void Robot::AutonomousInit() {
   //m_autonomousCommand = m_container.nomousCommand();
 
 //  if (m_autonomousCommand) {
 //    frc2::CommandScheduler::GetInstance().Schedule(m_autonomousCommand.value());
 //  }
-//}
+}
 
 void Robot::AutonomousPeriodic() {}
 
@@ -48,9 +52,9 @@ void Robot::TeleopInit() {
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove
   // this line or comment it out.
-  if (m_autonomousCommand) {
-    m_autonomousCommand->Cancel();
-  }
+//  if (m_autonomousCommand) {
+//    m_autonomousCommand->Cancel();
+//  }
 }
 
 /**
