@@ -91,17 +91,17 @@ constexpr double kDrivingMinOutput = -1;
 constexpr double kDrivingMaxOutput = 1;
 
 //constexpr double kTurningP = 5.5; //0.6*Kc
-constexpr double kTurningP = 0.5; //0.6*Kc
+constexpr double kTurningP = 0.1; //0.6*Kc 0.5
 constexpr double kTurningI = 0.0;  //Ki = 2*KP/Pc
 constexpr double kTurningD = 0.0; //was originally 0.004 0.125*Kp/Pc
 constexpr double kTurningFF = 0;
 constexpr double kTurningMinOutput = -1;
 constexpr double kTurningMaxOutput = 1;
 
-constexpr double kFrontLeftEncoderOffset = (5.87 / (std::numbers::pi * 2));
-constexpr double kFrontRightEncoderOffset = ((3.52 - 3.14) / (std::numbers::pi * 2));
-constexpr double kBackLeftEncoderOffset = (5.00 / (std::numbers::pi * 2));
-constexpr double kBackRightEncoderOffset = ((2.76 + 3.14) / (std::numbers::pi * 2));
+constexpr double kFrontLeftEncoderOffset = (2.86 / (std::numbers::pi * 2));
+constexpr double kFrontRightEncoderOffset = (3.52 / (std::numbers::pi * 2));
+constexpr double kBackLeftEncoderOffset = (1.77 / (std::numbers::pi * 2));
+constexpr double kBackRightEncoderOffset = (2.75 / (std::numbers::pi * 2));
 
 //constexpr double kFrontLeftEncoderOffset = 0;
 //constexpr double kFrontRightEncoderOffset = 0;
