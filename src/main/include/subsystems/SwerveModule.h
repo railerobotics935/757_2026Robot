@@ -6,20 +6,18 @@
 
 #include <numbers>
 #include <frc/AnalogInput.h>                        // for closed-loop control on RoboRIO
+#include <frc/AnalogEncoder.h>                      // for closed-loop control on RoboRIO
 #include <frc/controller/PIDController.h>           // for closed-loop control on RoboRIO
 #include <frc/controller/ProfiledPIDController.h>   // for closed-loop control on RoboRIO
-#include <frc/controller/SimpleMotorFeedforward.h>  // for closed-loop control on robo
+#include <frc/controller/SimpleMotorFeedforward.h>  // for closed-loop control on RoboRIO
 #include <frc/geometry/Rotation2d.h>
 #include <frc/kinematics/SwerveModulePosition.h>
 #include <frc/kinematics/SwerveModuleState.h>
 #include <frc/trajectory/TrapezoidProfile.h>
-#include <frc/controller/ProfiledPIDController.h>
-#include <frc/AnalogEncoder.h>
 
-#include <rev/SparkAbsoluteEncoder.h>               // for through-hole encoder on Spark MAX
+//#include <rev/SparkAbsoluteEncoder.h>               // for through-hole encoder on Spark MAX
 #include <rev/SparkClosedLoopController.h>                 // for closed-loop control on Spark MAX 
 #include <rev/SparkRelativeEncoder.h>               // for closed-loop control on Spark MAX
-
 #include <rev/SparkMax.h>
 //#include "rev/SparkAnalogSensor.h"
 //#include "ctre/phoenix6/CANCoder.hpp"
@@ -33,10 +31,11 @@ class SwerveModule {
   SwerveModule(const int drivingCANId, const int turningCANId, const int turnSensorCANId, const double moduleEncoderOffset);
 
   frc::SwerveModuleState GetState();
-
   frc::SwerveModulePosition GetPosition();
-
   void SetDesiredState(const frc::SwerveModuleState& state);
+
+  double GetTurnOutput();
+  double GetDesiredAngle();
 
   /**
    * Burn configuration onto sparkmax motorcontrollers
@@ -45,7 +44,6 @@ class SwerveModule {
   
   void SetTurningPID(double Kp, double Ki, double Kd);
   void SetDrivingPID(double Kp, double Ki, double Kd);
-
 
  private:
   // We have to use meters here instead of radians due to the fact that
@@ -62,10 +60,8 @@ class SwerveModule {
   frc::AnalogEncoder m_turningAbsoluteEncoder;
 
   rev::spark::SparkClosedLoopController m_drivingPIDController = m_drivingSparkMax.GetClosedLoopController();
-  
 
-  frc::SwerveModuleState m_desiredState{units::meters_per_second_t{0.0},
-                                        frc::Rotation2d()};
+  frc::SwerveModuleState m_desiredState{units::meters_per_second_t{0.0}, frc::Rotation2d()};
 
   static constexpr auto kModuleMaxAngularVelocity = 18.0 * std::numbers::pi * 1_rad_per_s;  // radians per second
   static constexpr auto kModuleMaxAngularAcceleration = 8.0 * std::numbers::pi * 2_rad_per_s / 1_s;  // radians per second^2
@@ -77,4 +73,7 @@ class SwerveModule {
 
   frc::SimpleMotorFeedforward<units::radians> m_turnFeedforward{0.5_V, 0.5_V / 1_rad_per_s};
 
+  // state variables to debug PID controls
+  double turnOutput = 0.0;
+  double desiredAngle = 0.0;
 };

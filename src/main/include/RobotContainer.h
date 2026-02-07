@@ -16,7 +16,8 @@
 #include "commands/intake/SimpleIntake.h"
 #include "commands/intake/SimpleOuttake.h"
 #include "commands/intake/StopIntake.h"
-#include "commands/shooter/SimpleShoot.h"
+#include "commands/shooter/ChargeShooter.h"
+#include "commands/shooter/StageShooter.h"
 #include "commands/shooter/StopShooter.h"
 #include "commands/drive/DriveWithController.h"
 
@@ -32,7 +33,7 @@ class RobotContainer {
  public:
   RobotContainer();
 
-  //frc2::CommandPtr GetAutonomousCommand();
+  frc2::CommandPtr GetAutonomousCommand();
 
  private:
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -56,9 +57,10 @@ class RobotContainer {
 
   // Commands
   SimpleIntake m_simpleIntake{&m_intakeSubsystem, &m_stagerSubsystem};
-  SimpleOuttake m_simpleOuttake{&m_intakeSubsystem};
+  SimpleOuttake m_simpleOuttake{&m_intakeSubsystem, &m_stagerSubsystem};
   StopIntake m_stopIntake{&m_intakeSubsystem};
-  SimpleShoot m_simpleShoot{&m_stagerSubsystem, &m_intakeSubsystem};
+  ChargeShooter m_chargeShooter{&m_intakeSubsystem};
+  StageShooter m_stageShooter{&m_stagerSubsystem};
   StopShooter m_stopShooter{&m_stagerSubsystem};
   DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
 

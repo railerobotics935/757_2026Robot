@@ -4,34 +4,25 @@
 
 #include "subsystems/SwerveModule.h"
 
-#include <numbers>
-
-#include <frc/geometry/Rotation2d.h>
-
 #include <rev/config/SparkMaxConfig.h>
-
-#include <frc/controller/PIDController.h>
-
-#include "Constants.h"
 
 using namespace ModuleConstants;
 
 SwerveModule::SwerveModule(const int drivingCANId, const int turningCANId,
-                               const int turnSensorCANId, const double moduleEncoderOffset)
-    : m_drivingSparkMax(drivingCANId, rev::spark::SparkMax::MotorType::kBrushless),
-      m_turningSparkMax(turningCANId, rev::spark::SparkMax::MotorType::kBrushless),
-      m_turningAbsoluteEncoder(turnSensorCANId),
-      m_moduleEncoderOffset(moduleEncoderOffset) {
+                           const int turnSensorCANId, const double moduleEncoderOffset)
+  : m_drivingSparkMax(drivingCANId, rev::spark::SparkMax::MotorType::kBrushless),
+    m_turningSparkMax(turningCANId, rev::spark::SparkMax::MotorType::kBrushless),
+    m_turningAbsoluteEncoder(turnSensorCANId),
+    m_moduleEncoderOffset(moduleEncoderOffset) {
 
-  #ifdef BURNMODULESPARKMAX 
+#ifdef BURNMODULESPARKMAX 
   ConfigureSparkMax();
   std::cout << "Flash Burned on Swerve Module\r\n";
-  #else
+#else
   std::cout << "Flash was not burned on Swerve Module\r\n";
-  #endif
+#endif
 
-  m_desiredState.angle =
-      frc::Rotation2d(units::radian_t{m_turningAbsoluteEncoder.Get()});
+  m_desiredState.angle = frc::Rotation2d(units::radian_t{m_turningAbsoluteEncoder.Get()});
   m_drivingEncoder.SetPosition(0);
 
   // Limit the PID Controller's input range between -pi and pi and set the input
@@ -71,19 +62,20 @@ void SwerveModule::ConfigureSparkMax() {
   .VoltageCompensation(RobotConstants::kVoltageCompentationValue)
   .SetIdleMode(kTurningMotorIdleMode)
   .SmartCurrentLimit(kTurningMotorCurrentLimit.value())
-  .Inverted(true);
+  .Inverted(false);
 
-  #ifdef SETTURNINGZEROS
+#if 0
+#ifdef SETTURNINGZEROS
   turningSparkMaxConfig.absoluteEncoder
   .PositionConversionFactor(kTurningEncoderPositionFactor)
   .VelocityConversionFactor(kTurningEncoderVelocityFactor)
   .ZeroOffset(m_moduleEncoderOffset);
 //  .Inverted(kTurningEncoderInverted);
-  #else
+#else
     turningSparkMaxConfig.absoluteEncoder
   .PositionConversionFactor(kTurningEncoderPositionFactor)
   .VelocityConversionFactor(kTurningEncoderVelocityFactor);
-  #endif
+#endif
 
   turningSparkMaxConfig.closedLoop
   .Pidf(kTurningP, kTurningI, kTurningD, kTurningFF)
@@ -92,6 +84,7 @@ void SwerveModule::ConfigureSparkMax() {
   .PositionWrappingEnabled(true)
   .PositionWrappingMinInput(kTurningEncoderPositionPIDMinInput.value())
   .PositionWrappingMaxInput(kTurningEncoderPositionPIDMaxInput.value());
+#endif
 
   m_turningSparkMax.Configure(turningSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
         
@@ -100,7 +93,6 @@ void SwerveModule::ConfigureSparkMax() {
 }
 
 frc::SwerveModuleState SwerveModule::GetState() {
-
   double adjusted = m_turningAbsoluteEncoder.Get() - m_moduleEncoderOffset;
 
   if (adjusted < 0.0)
@@ -111,22 +103,21 @@ frc::SwerveModuleState SwerveModule::GetState() {
   return {units::meters_per_second_t{m_drivingEncoder.GetVelocity()},
           units::radian_t{adjusted * 2 * std::numbers::pi}};
 }
-//Gets the current position of the swerve module.
+
+// Gets the current position of the swerve module.
 frc::SwerveModulePosition SwerveModule::GetPosition() {
   return {units::meter_t{m_drivingEncoder.GetPosition()},
           units::radian_t{m_turningAbsoluteEncoder.Get() * 2 * std::numbers::pi}};
 }
 
 void SwerveModule::SetDesiredState(const frc::SwerveModuleState& desiredState){
-
-  //Manually Adding Encoder Offsets
+  // Manually Adding Encoder Offsets
   double adjusted = m_turningAbsoluteEncoder.Get() - m_moduleEncoderOffset;
 
   if (adjusted < 0.0)
     adjusted += 1.0;
   else if (adjusted > 1.0)
     adjusted -= 1.0;
-
 
   // Optimize the reference state to avoid spinning further than 90 degrees.
   frc::SwerveModuleState optimizedDesiredState{frc::SwerveModuleState::Optimize(desiredState,
@@ -137,12 +128,15 @@ void SwerveModule::SetDesiredState(const frc::SwerveModuleState& desiredState){
                                       rev::spark::SparkMax::ControlType::kVelocity);
 
   // PID Controller in Roborio
-  const auto turnOutput = m_turningPIDController.Calculate(
+//  const auto turnOutput = m_turningPIDController.Calculate(
+  desiredAngle = (double)(optimizedDesiredState.angle).Radians();
+  turnOutput = m_turningPIDController.Calculate(
     units::radian_t(adjusted * 2 * std::numbers::pi), (optimizedDesiredState.angle).Radians());
 
-  const auto turnFeedforward = m_turnFeedforward.Calculate(m_turningPIDController.GetSetpoint().velocity);
+//  const auto turnFeedforward = m_turnFeedforward.Calculate(m_turningPIDController.GetSetpoint().velocity);
 
-  m_turningSparkMax.SetVoltage(units::volt_t{turnOutput});
+//  m_turningSparkMax.SetVoltage(units::volt_t{turnOutput});
+  m_turningSparkMax.Set(turnOutput);
 
   m_desiredState = desiredState;
 } 
@@ -162,3 +156,14 @@ void SwerveModule::SetDrivingPID(double Kp, double Ki, double Kd) {
   m_drivingSparkMax.Configure(driveSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
 //#endif
 }
+
+double SwerveModule::GetTurnOutput()
+{
+  return turnOutput;
+}
+
+double SwerveModule::GetDesiredAngle()
+{
+  return desiredAngle;
+}
+

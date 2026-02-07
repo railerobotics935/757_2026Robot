@@ -269,26 +269,31 @@ frc::SwerveDriveKinematics<4> m_driveKinematics{
     frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2),units::meter_t(RobotConstants::kWheelWidth/2)},
     frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2),units::meter_t(-RobotConstants::kWheelWidth/2)}};
 
-
 private:
   nt::NetworkTableEntry nte_fl_set_angle;
-  //frc::SmartDashboard::SetNumber("Set Angle Front Left", nte_fl_set_angle);
   nt::NetworkTableEntry nte_fr_set_angle;
   nt::NetworkTableEntry nte_bl_set_angle;
   nt::NetworkTableEntry nte_br_set_angle;
-  nt::NetworkTableEntry nte_fl_set_speed;
-  nt::NetworkTableEntry nte_fr_set_speed;
-  nt::NetworkTableEntry nte_bl_set_speed;
-  nt::NetworkTableEntry nte_br_set_speed;
-  
+
   nt::NetworkTableEntry nte_fl_real_angle;
   nt::NetworkTableEntry nte_fr_real_angle;
   nt::NetworkTableEntry nte_bl_real_angle;
   nt::NetworkTableEntry nte_br_real_angle;
-  nt::NetworkTableEntry nte_fl_real_speed;
-  nt::NetworkTableEntry nte_fr_real_speed;
-  nt::NetworkTableEntry nte_bl_real_speed;
-  nt::NetworkTableEntry nte_br_real_speed;
+
+//  nt::NetworkTableEntry nte_fl_set_speed;
+//  nt::NetworkTableEntry nte_fr_set_speed;
+//  nt::NetworkTableEntry nte_bl_set_speed;
+//  nt::NetworkTableEntry nte_br_set_speed;
+
+  nt::NetworkTableEntry nte_fl_turn_output;
+  nt::NetworkTableEntry nte_fr_turn_output;
+  nt::NetworkTableEntry nte_bl_turn_output;
+  nt::NetworkTableEntry nte_br_turn_output;
+
+//  nt::NetworkTableEntry nte_fl_real_speed;
+//  nt::NetworkTableEntry nte_fr_real_speed;
+//  nt::NetworkTableEntry nte_bl_real_speed;
+//  nt::NetworkTableEntry nte_br_real_speed;
 
   nt::NetworkTableEntry nte_fl_encoder_position;
   nt::NetworkTableEntry nte_fr_encoder_position;
@@ -364,7 +369,7 @@ private:
   frc::PIDController m_robotAngleController{DriveConstants::kRotationP, DriveConstants::kRotationI, DriveConstants::kRotationD};
 
   // Variables to internialy keep track of drive state
-  bool m_fieldRelative = false;
+  bool m_fieldRelative = true;
 
   // Create path to deploy directory
  // fs::path deployDirectory{frc::filesystem::GetDeployDirectory() + "/2025-reefscape.json"};

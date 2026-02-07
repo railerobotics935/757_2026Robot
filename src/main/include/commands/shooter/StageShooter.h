@@ -6,23 +6,20 @@
 #include <frc/XboxController.h>
 
 #include "subsystems/StagerSubsystem.h"
-#include "subsystems/IntakeSubsystem.h"
 
-class SimpleShoot
-  : public frc2::CommandHelper<frc2::Command, SimpleShoot> {
+class StageShooter
+  : public frc2::CommandHelper<frc2::Command, StageShooter> {
 public:
   /**
    * Creates a new SimpleShoot.
    *
    * @param stager The pointer to the stager subsystem
-   * @param intake The pointer to the intake subsystem
    */
-  explicit SimpleShoot(StagerSubsystem* stager, IntakeSubsystem* intake);
+  explicit StageShooter(StagerSubsystem* stager);
 
   void Initialize() override;
   void End(bool interrupted) override;
   
 private:
   StagerSubsystem* m_stager;
-  IntakeSubsystem* m_intake;
 };

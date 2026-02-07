@@ -43,11 +43,9 @@ namespace RobotConstants {
 constexpr double kVoltageCompentationValue = 11.0;
 
 const units::meter_t kWheelBase =
-    0.6461_m; 
+    0.3937_m; 
 const units::meter_t kWheelWidth =
-    0.4556_m; 
-
-
+    0.6411_m; 
 }  // namespace RobotConstants
 
 namespace ModuleConstants {
@@ -88,11 +86,12 @@ constexpr units::radian_t kTurningEncoderPositionPIDMaxInput =
 constexpr double kDrivingP = 0.0;
 constexpr double kDrivingI = 0.0;
 constexpr double kDrivingD = 0.0;
-constexpr double kDrivingFF = (1 / kDriveWheelFreeSpeedRps);
+constexpr double kDrivingFF = (4 / kDriveWheelFreeSpeedRps);
 constexpr double kDrivingMinOutput = -1;
 constexpr double kDrivingMaxOutput = 1;
 
-constexpr double kTurningP = 5.5; //0.6*Kc
+//constexpr double kTurningP = 5.5; //0.6*Kc
+constexpr double kTurningP = 0.5; //0.6*Kc
 constexpr double kTurningI = 0.0;  //Ki = 2*KP/Pc
 constexpr double kTurningD = 0.0; //was originally 0.004 0.125*Kp/Pc
 constexpr double kTurningFF = 0;
@@ -100,9 +99,9 @@ constexpr double kTurningMinOutput = -1;
 constexpr double kTurningMaxOutput = 1;
 
 constexpr double kFrontLeftEncoderOffset = (5.87 / (std::numbers::pi * 2));
-constexpr double kFrontRightEncoderOffset = (3.52 / (std::numbers::pi * 2));
+constexpr double kFrontRightEncoderOffset = ((3.52 - 3.14) / (std::numbers::pi * 2));
 constexpr double kBackLeftEncoderOffset = (5.00 / (std::numbers::pi * 2));
-constexpr double kBackRightEncoderOffset = (2.76 / (std::numbers::pi * 2));
+constexpr double kBackRightEncoderOffset = ((2.76 + 3.14) / (std::numbers::pi * 2));
 
 //constexpr double kFrontLeftEncoderOffset = 0;
 //constexpr double kFrontRightEncoderOffset = 0;
@@ -140,7 +139,6 @@ constexpr int kFrontRightDriveMotorPort = 18;
 constexpr int kBackLeftDriveMotorPort = 24;
 constexpr int kBackRightDriveMotorPort = 15;
 
-
 //Analog id numbers
 constexpr int kFrontLeftAnalogId = 0;
 constexpr int kFrontRightAnalogId = 3;
@@ -151,7 +149,6 @@ constexpr int kBackRightAnalogId = 2;
 constexpr double kRotationP = 2.5;
 constexpr double kRotationI = 0.002;
 constexpr double kRotationD = 0.2;
-
 
 // Offsets in radians for the encoders. the first number to to make zero forward, after that we
 // subtract an additional pi to make the full range -pi to pi instead of 0 to 2pi
@@ -191,14 +188,18 @@ constexpr int kDriveLeftXIndex = 0;
 constexpr int kDriveLeftYIndex = 1;
 constexpr int kDriveRightXIndex = 4;
 
+//Driver Buttons
+constexpr int kFieldRelativeButton = 7;
+constexpr int kRobotRelativeButton = 8;
+constexpr int kResetButton = 2;
+
 //Operator Controls
 //Logitek controller
 //Operator Buttons
 constexpr int kIntakeButton = 8; //RT
 constexpr int kOuttakeButton = 6; //RB
-constexpr int kShooterButton = 7; //LT
-
-
+constexpr int kChargeButton = 5; //LB
+constexpr int kStageButton = 3; //LT
 } //ControllerConstants
 
 namespace IntakeConstants {

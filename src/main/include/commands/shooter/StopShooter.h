@@ -15,7 +15,7 @@ public:
    *
    * @param stager The pointer to the stager subsystem
    */
-  explicit StopShooter(StagerSubsystem* intake);
+  explicit StopShooter(StagerSubsystem* stager);
 
   void Initialize() override;
   void End(bool interrupted) override;

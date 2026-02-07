@@ -35,23 +35,20 @@ DriveSubsystem::DriveSubsystem()
                 kFrontLeftAnalogId,
                 ModuleConstants::kFrontLeftEncoderOffset},
 
-    m_frontRight{
-        kFrontRightDriveMotorPort,       
-        kFrontRightTurningMotorPort,
-        kFrontRightAnalogId,
-        ModuleConstants::kFrontRightEncoderOffset},
+    m_frontRight{kFrontRightDriveMotorPort,       
+                kFrontRightTurningMotorPort,
+                kFrontRightAnalogId,
+                ModuleConstants::kFrontRightEncoderOffset},
     
-    m_backLeft{
-        kBackLeftDriveMotorPort,       
-        kBackLeftTurningMotorPort,
-        kBackLeftAnalogId,
-        ModuleConstants::kBackLeftEncoderOffset},
+    m_backLeft{kBackLeftDriveMotorPort,       
+                kBackLeftTurningMotorPort,
+                kBackLeftAnalogId,
+                ModuleConstants::kBackLeftEncoderOffset},
 
-    m_backRight{
-        kBackRightDriveMotorPort,       
-        kBackRightTurningMotorPort,  
-        kBackRightAnalogId,
-        ModuleConstants::kBackRightEncoderOffset},
+    m_backRight{kBackRightDriveMotorPort,       
+                kBackRightTurningMotorPort,  
+                kBackRightAnalogId,
+                ModuleConstants::kBackRightEncoderOffset},
 
     m_odometry{m_driveKinematics,
                 m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw),
@@ -66,11 +63,9 @@ DriveSubsystem::DriveSubsystem()
                 frc::Pose2d{(units::meter_t)3.0, (units::meter_t)3.0, m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw)},
                 {0.05, 0.05, 0.001}, // Standard Deviation of the encoder position value
                 {0.2, 0.2, 0.05}} // Standard Deviation of vision pose esitmation
-
-                
 {
-
-#if 0  
+#if 0
+// TODO: fix me: next statement causes the deployed to crash:
 RobotConfig config = RobotConfig::fromGUISettings();
 
 AutoBuilder::configure(
@@ -96,7 +91,6 @@ AutoBuilder::configure(
         },
         this // Reference to this subsystem to set requirements
     );
-
 #endif
 
   // Initialize shuffleboard communication
@@ -107,19 +101,26 @@ AutoBuilder::configure(
   nte_fr_set_angle = nt_table->GetEntry("Swerve Drive/Front Right/Set Angle");
   nte_bl_set_angle = nt_table->GetEntry("Swerve Drive/Back Left/Set Angle");
   nte_br_set_angle = nt_table->GetEntry("Swerve Drive/Back Right/Set Angle");
-  nte_fl_set_speed = nt_table->GetEntry("Swerve Drive/Front Left/Set Speed");
-  nte_fr_set_speed = nt_table->GetEntry("Swerve Drive/Front Right/Set Speed");
-  nte_bl_set_speed = nt_table->GetEntry("Swerve Drive/Back Left/Set Speed");
-  nte_br_set_speed = nt_table->GetEntry("Swerve Drive/Back Right/Set Speed");
+
+//  nte_fl_set_speed = nt_table->GetEntry("Swerve Drive/Front Left/Set Speed");
+//  nte_fr_set_speed = nt_table->GetEntry("Swerve Drive/Front Right/Set Speed");
+//  nte_bl_set_speed = nt_table->GetEntry("Swerve Drive/Back Left/Set Speed");
+//  nte_br_set_speed = nt_table->GetEntry("Swerve Drive/Back Right/Set Speed");
 
   nte_fl_real_angle = nt_table->GetEntry("Swerve Drive/Front Left/Real Angle");
   nte_fr_real_angle = nt_table->GetEntry("Swerve Drive/Front Right/Real Angle");
   nte_bl_real_angle = nt_table->GetEntry("Swerve Drive/Back Left/Real Angle");
   nte_br_real_angle = nt_table->GetEntry("Swerve Drive/Back Right/Real Angle");
-  nte_fl_real_speed = nt_table->GetEntry("Swerve Drive/Front Left/Real Speed");
-  nte_fr_real_speed = nt_table->GetEntry("Swerve Drive/Front Right/Real Speed");
-  nte_bl_real_speed = nt_table->GetEntry("Swerve Drive/Back Left/Real Speed");
-  nte_br_real_speed = nt_table->GetEntry("Swerve Drive/Back Right/Real Speed");
+
+  nte_fl_turn_output = nt_table->GetEntry("Swerve Drive/Front Left/Turn Output");
+  nte_fr_turn_output = nt_table->GetEntry("Swerve Drive/Front Right/Turn Output");
+  nte_bl_turn_output = nt_table->GetEntry("Swerve Drive/Back Left/Turn Output");
+  nte_br_turn_output = nt_table->GetEntry("Swerve Drive/Back Right/Turn Output");
+
+//  nte_fl_real_speed = nt_table->GetEntry("Swerve Drive/Front Left/Real Speed");
+//  nte_fr_real_speed = nt_table->GetEntry("Swerve Drive/Front Right/Real Speed");
+//  nte_bl_real_speed = nt_table->GetEntry("Swerve Drive/Back Left/Real Speed");
+//  nte_br_real_speed = nt_table->GetEntry("Swerve Drive/Back Right/Real Speed");
 
   nte_fl_encoder_position = nt_table->GetEntry("Swerve Drive/Front Left/Encoder Position");
   nte_fr_encoder_position = nt_table->GetEntry("Swerve Drive/Front Right/Encoder Position");
@@ -161,7 +162,6 @@ AutoBuilder::configure(
   //nte_ktp.SetDouble(2.5);
   //nte_kti.SetDouble(0.002);
   //nte_ktd.SetDouble(0.05);
-
   
   // Send Field to shuffleboard
   frc::Shuffleboard::GetTab("Field").Add(m_field);
@@ -169,10 +169,9 @@ AutoBuilder::configure(
   m_robotAngleController.EnableContinuousInput(0, (std::numbers::pi * 2));
 
   m_timer.Restart();
-
 }
 
-// Returns true is the allience selected is red
+// Returns true is the alliance selected is red
 bool DriveSubsystem::InRedAlliance() {
   if (frc::DriverStation::GetAlliance() == frc::DriverStation::Alliance::kBlue)
     return false;
@@ -194,8 +193,8 @@ void DriveSubsystem::Periodic() {
    // EstimatePoseWithApriltag();
   
   UpdateNTE();
-//  GetTurningPIDParameters();
-//  GetDrivingPIDParameters();
+  GetTurningPIDParameters();
+  GetDrivingPIDParameters();
 
 //  m_field.SetRobotPose(m_poseEstimator.GetEstimatedPosition());
 
@@ -203,34 +202,41 @@ void DriveSubsystem::Periodic() {
   //m_robotAngleController.SetI(nte_kti.GetDouble(0.002));
   //m_robotAngleController.SetD(nte_ktd.GetDouble(0.05));
 }
+
 // This updates the Network table entries
 void DriveSubsystem::UpdateNTE() {
 
+  nte_fl_encoder_position.SetDouble((double)m_frontLeft.GetPosition().angle.Radians());
   nte_fl_real_angle.SetDouble((double)m_frontLeft.GetState().angle.Radians());
+//  nte_fl_set_angle.SetDouble((double)m_frontLeft.GetDesiredAngle());
+  nte_fl_turn_output.SetDouble((double)m_frontLeft.GetTurnOutput());
+
+  nte_fr_encoder_position.SetDouble((double)m_frontRight.GetPosition().angle.Radians());
   nte_fr_real_angle.SetDouble((double)m_frontRight.GetState().angle.Radians());
+//  nte_fr_set_angle.SetDouble((double)m_frontRight.GetDesiredAngle());
+  nte_fr_turn_output.SetDouble((double)m_frontRight.GetTurnOutput());
+
+  nte_bl_encoder_position.SetDouble((double)m_backLeft.GetPosition().angle.Radians());
   nte_bl_real_angle.SetDouble((double)m_backLeft.GetState().angle.Radians());
+//  nte_bl_set_angle.SetDouble((double)m_backLeft.GetDesiredAngle());
+  nte_bl_turn_output.SetDouble((double)m_backLeft.GetTurnOutput());
+
+  nte_br_encoder_position.SetDouble((double)m_backRight.GetPosition().angle.Radians());
   nte_br_real_angle.SetDouble((double)m_backRight.GetState().angle.Radians());
-  nte_fl_real_speed.SetDouble((double)m_frontLeft.GetState().speed);
-  nte_fr_real_speed.SetDouble((double)m_frontRight.GetState().speed);
-  nte_bl_real_speed.SetDouble((double)m_backLeft.GetState().speed);
-  nte_br_real_speed.SetDouble((double)m_backRight.GetState().speed);
+//  nte_br_set_angle.SetDouble((double)m_backRight.GetDesiredAngle());
+  nte_br_turn_output.SetDouble((double)m_backRight.GetTurnOutput());
+
+//  nte_fl_real_speed.SetDouble((double)m_frontLeft.GetState().speed);
+//  nte_fr_real_speed.SetDouble((double)m_frontRight.GetState().speed);
+//  nte_bl_real_speed.SetDouble((double)m_backLeft.GetState().speed);
+//  nte_br_real_speed.SetDouble((double)m_backRight.GetState().speed);
 
   nte_gyro_angle.SetDouble((double)m_odometry.GetPose().Rotation().Radians());
   nte_robot_x.SetDouble((double)m_odometry.GetPose().X());
   nte_robot_y.SetDouble((double)m_odometry.GetPose().Y());
 
-
-
-  nte_fl_encoder_position.SetDouble((double)m_frontLeft.GetPosition().angle.Radians());
-  nte_fr_encoder_position.SetDouble((double)m_frontRight.GetPosition().angle.Radians());
-  nte_bl_encoder_position.SetDouble((double)m_backLeft.GetPosition().angle.Radians());
-  nte_br_encoder_position.SetDouble((double)m_backRight.GetPosition().angle.Radians());
-
   // Set robot position to shuffleboard field :)
   m_field.SetRobotPose(GetOdometryPose());
-
-
-
 }
 
 void DriveSubsystem::GetTurningPIDParameters() {
@@ -241,6 +247,7 @@ void DriveSubsystem::GetTurningPIDParameters() {
   if ((pValue != m_turning_Kp) ||
       (iValue != m_turning_Ki) ||
       (dValue != m_turning_Kd)) {
+    std::cout << "Steering PID parameters updated" << std::endl;
     m_turning_Kp = pValue;
     m_turning_Ki = iValue;
     m_turning_Kd = dValue;
@@ -248,7 +255,6 @@ void DriveSubsystem::GetTurningPIDParameters() {
     m_frontRight.SetTurningPID(m_turning_Kp, m_turning_Ki, m_turning_Kd);
     m_backLeft.SetTurningPID(m_turning_Kp, m_turning_Ki, m_turning_Kd);
     m_backRight.SetTurningPID(m_turning_Kp, m_turning_Ki, m_turning_Kd);
-
   }
 }
 
@@ -301,7 +307,7 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
     double elapsedTime = currentTime - m_prevTime;
     double angleDif = SwerveUtils::AngleDifference(inputTranslationDir,
                                                    m_currentTranslationDir);
-    //Steps an angle toward a disired target angle.
+    // Steps an angle toward a disired target angle.
     if (angleDif < 0.45 * std::numbers::pi) {
       m_currentTranslationDir = SwerveUtils::StepTowardsCircular(
           m_currentTranslationDir, inputTranslationDir,
@@ -373,11 +379,11 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
   nte_fr_set_angle.SetDouble((double)fr.angle.Radians());
   nte_bl_set_angle.SetDouble((double)bl.angle.Radians());
   nte_br_set_angle.SetDouble((double)br.angle.Radians());
-  nte_fl_set_speed.SetDouble((double)fl.speed);
-  nte_fr_set_speed.SetDouble((double)fr.speed);
-  nte_bl_set_speed.SetDouble((double)bl.speed);
-  nte_br_set_speed.SetDouble((double)br.speed);
-  
+//  nte_fl_set_speed.SetDouble((double)fl.speed);
+//  nte_fr_set_speed.SetDouble((double)fr.speed);
+//  nte_bl_set_speed.SetDouble((double)bl.speed);
+//  nte_br_set_speed.SetDouble((double)br.speed);
+ 
 }
 //Drives the robot at given x and y, and it faces the angle given.
 void DriveSubsystem::DriveFacingGoal(units::meters_per_second_t xSpeed,
@@ -482,10 +488,10 @@ void DriveSubsystem::DriveFacingGoal(units::meters_per_second_t xSpeed,
   m_backRight.SetDesiredState(br);
 
   // Network table entries
-  //nte_fl_set_angle.SetDouble((double)fl.angle.Radians());
-  //nte_fr_set_angle.SetDouble((double)fr.angle.Radians());
-  //nte_bl_set_angle.SetDouble((double)bl.angle.Radians());
-  //nte_br_set_angle.SetDouble((double)br.angle.Radians());
+  nte_fl_set_angle.SetDouble((double)fl.angle.Radians());
+  nte_fr_set_angle.SetDouble((double)fr.angle.Radians());
+  nte_bl_set_angle.SetDouble((double)bl.angle.Radians());
+  nte_br_set_angle.SetDouble((double)br.angle.Radians());
   //nte_fl_set_speed.SetDouble((double)fl.speed);
   //nte_fr_set_speed.SetDouble((double)fr.speed);
   //nte_bl_set_speed.SetDouble((double)bl.speed);
