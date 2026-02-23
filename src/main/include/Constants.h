@@ -32,7 +32,7 @@
  * they are needed.
  */
 
-// #define BURNINTAKESPARKMAX
+#define BURNINTAKESPARKMAX
 // #define BURNSHOOTERSPARKMAX
 #define BURNMODULESPARKMAX
 #define PRINTDEBUG
@@ -98,10 +98,10 @@ constexpr double kTurningFF = 0;
 constexpr double kTurningMinOutput = -1;
 constexpr double kTurningMaxOutput = 1;
 
-constexpr double kFrontLeftEncoderOffset = (2.86 / (std::numbers::pi * 2));
-constexpr double kFrontRightEncoderOffset = (3.52 / (std::numbers::pi * 2));
-constexpr double kBackLeftEncoderOffset = (1.77 / (std::numbers::pi * 2));
-constexpr double kBackRightEncoderOffset = (2.75 / (std::numbers::pi * 2));
+constexpr double kFrontLeftEncoderOffset = (2.79 / (std::numbers::pi * 2));
+constexpr double kFrontRightEncoderOffset = (3.58 / (std::numbers::pi * 2));
+constexpr double kBackLeftEncoderOffset = (1.71 / (std::numbers::pi * 2));
+constexpr double kBackRightEncoderOffset = (2.74 / (std::numbers::pi * 2));
 
 //constexpr double kFrontLeftEncoderOffset = 0;
 //constexpr double kFrontRightEncoderOffset = 0;
@@ -194,18 +194,19 @@ constexpr int kRobotRelativeButton = 8;
 constexpr int kResetButton = 2;
 
 //Operator Controls
-//Logitek controller
+//Logitech controller
 //Operator Buttons
 constexpr int kIntakeButton = 8; //RT
 constexpr int kOuttakeButton = 6; //RB
 constexpr int kChargeButton = 5; //LB
-constexpr int kStageButton = 3; //LT
+constexpr int kStageButton = 3; //B
 } //ControllerConstants
 
 namespace IntakeConstants {
 
 // Intake Motors
-constexpr int kIntakeMotorID = 20;
+constexpr int kIntakeLeftMotorID = 20; 
+constexpr int kIntakeRightMotorID = 25;
 
 constexpr rev::spark::SparkLowLevel::MotorType kIntakeMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
 constexpr rev::spark::SparkMaxConfig::IdleMode kIntakeMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;

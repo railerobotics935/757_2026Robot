@@ -6,6 +6,10 @@
 
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/CommandXboxController.h>
+#include <frc/smartdashboard/SendableChooser.h>
+#include <pathplanner/lib/auto/AutoBuilder.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+#include "pathplanner/lib/commands/PathPlannerAuto.h"
 
 #include "Constants.h"
 #include "subsystems/ExampleSubsystem.h"
@@ -54,6 +58,12 @@ class RobotContainer {
   // Controllers
   frc::XboxController m_driveController{OperatorConstants::kDriverControllerPort};
   frc::XboxController m_operatorController{OperatorConstants::kOperatorControllerPort};
+
+  // Sendable chooser for auto
+  frc::SendableChooser<std::string> m_autoChooser;
+
+  // Autos
+  std::string m_testAuto = "Test Auto";
 
   // Commands
   SimpleIntake m_simpleIntake{&m_intakeSubsystem, &m_stagerSubsystem};

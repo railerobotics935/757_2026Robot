@@ -24,3 +24,4 @@ void SimpleOuttake::End(bool interrupted) {
   m_intake->SetIntakeMotorPower(0.0);
   m_stager->SetStagerMotorPower(0.0);
 }
+//opensesame 

@@ -11,7 +11,7 @@ void ChargeShooter::Initialize() {
 #ifdef PRINTDEBUG
   std::cout << "ChargeShooter Initialized\r\n";
 #endif
-  m_intake->SetIntakeMotorPower(0.85);
+  m_intake->SetIntakeMotorPower(0.80);
 }
 
 

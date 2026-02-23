@@ -65,7 +65,7 @@ DriveSubsystem::DriveSubsystem()
                 {0.05, 0.05, 0.001}, // Standard Deviation of the encoder position value
                 {0.2, 0.2, 0.05}} // Standard Deviation of vision pose esitmation
 {
-#if 0
+
 // TODO: fix me: next statement causes the deployed to crash:
 RobotConfig config = RobotConfig::fromGUISettings();
 
@@ -92,7 +92,7 @@ AutoBuilder::configure(
         },
         this // Reference to this subsystem to set requirements
     );
-#endif
+
 
   // Initialize shuffleboard communication
   auto nt_inst = nt::NetworkTableInstance::GetDefault();
@@ -186,8 +186,8 @@ void DriveSubsystem::Periodic() {
                     {m_frontLeft.GetPosition(), m_frontRight.GetPosition(), 
                     m_backLeft.GetPosition(), m_backRight.GetPosition()});
 
-  //m_poseEstimator.Update(m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw), 
-                      //{m_frontLeft.GetPosition(), m_frontRight.GetPosition(), m_backLeft.GetPosition(), m_backRight.GetPosition()});
+  m_poseEstimator.Update(m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw), 
+                      {m_frontLeft.GetPosition(), m_frontRight.GetPosition(), m_backLeft.GetPosition(), m_backRight.GetPosition()});
 
   // set odometry relative to the apriltag
  // if (GetLinearRobotSpeed() < 1.0 && GetTurnRate() < 20.0)

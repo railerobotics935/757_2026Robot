@@ -19,6 +19,11 @@ RobotContainer::RobotContainer() {
   m_driveSubsystem.SetDefaultCommand(std::move(m_driveWithController));
   m_intakeSubsystem.SetDefaultCommand(std::move(m_stopIntake));
   m_stagerSubsystem.SetDefaultCommand(std::move(m_stopShooter));
+
+  frc::Shuffleboard::GetTab("Autonomous").Add(m_autoChooser);
+
+  m_autoChooser.SetDefaultOption("Test Auto", m_testAuto);
+
 }
 
 void RobotContainer::ConfigureBindings() {
@@ -47,4 +52,5 @@ void RobotContainer::ConfigureBindings() {
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
+  return pathplanner::PathPlannerAuto(m_autoChooser.GetSelected()).ToPtr();
 }
