@@ -197,7 +197,7 @@ void DriveSubsystem::Periodic() {
   GetTurningPIDParameters();
   GetDrivingPIDParameters();
 
-//  m_field.SetRobotPose(m_poseEstimator.GetEstimatedPosition());
+  m_field.SetRobotPose(m_poseEstimator.GetEstimatedPosition());
 
   //m_robotAngleController.SetP(nte_ktp.GetDouble(4.5));
   //m_robotAngleController.SetI(nte_kti.GetDouble(0.002));

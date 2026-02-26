@@ -31,6 +31,7 @@
 
 #include "Constants.h"
 #include "SwerveModule.h"
+#include "sensors/ApriltagSensor.h"
 //#include "sensors/ApriltagSensor.h"
 
 class DriveSubsystem : public frc2::SubsystemBase {
@@ -353,6 +354,7 @@ private:
 
   // Pose Estimator
   frc::SwerveDrivePoseEstimator<4> m_poseEstimator;
+  //ApriltagSensor m_poseEstimator;
 
   // Slew rate filter variables for controlling lateral acceleration
   double m_currentRotation = 0.0;
