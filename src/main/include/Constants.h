@@ -206,8 +206,7 @@ constexpr int kStageButton = 3; //B
 namespace IntakeConstants {
 
 // Intake Motors
-constexpr int kIntakeLeftMotorID = 20; 
-constexpr int kIntakeRightMotorID = 25;
+constexpr int kIntakeMotorID = 20; 
 
 constexpr rev::spark::SparkLowLevel::MotorType kIntakeMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
 constexpr rev::spark::SparkMaxConfig::IdleMode kIntakeMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
@@ -215,6 +214,18 @@ constexpr rev::spark::SparkMaxConfig::IdleMode kIntakeMotorIdleMode = rev::spark
 constexpr units::ampere_t kIntakeMotorCurrentLimit = 40_A;
 
 }  // namespace IntakeConstants
+
+namespace ShooterConstants {
+
+// Shooter Motors
+constexpr int kLeftShooterMotorID = 25;
+constexpr int kRightShooterMotorID = 14;
+
+constexpr rev::spark::SparkLowLevel::MotorType kShooterMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
+constexpr rev::spark::SparkMaxConfig::IdleMode kShooterMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
+
+constexpr units::ampere_t kShooterMotorCurrentLimit = 40_A;
+} // namespace ShooterConstants
 
 namespace StagerConstants {
 

@@ -16,12 +16,14 @@
 #include "subsystems/IntakeSubsystem.h"
 #include "subsystems/StagerSubsystem.h"
 #include "subsystems/DriveSubsystem.h"
+#include "subsystems/ShooterSubsystem.h"
 
 #include "commands/intake/SimpleIntake.h"
 #include "commands/intake/SimpleOuttake.h"
 #include "commands/intake/StopIntake.h"
 #include "commands/shooter/ChargeShooter.h"
 #include "commands/shooter/StageShooter.h"
+#include "commands/shooter/StopStager.h"
 #include "commands/shooter/StopShooter.h"
 #include "commands/drive/DriveWithController.h"
 
@@ -51,6 +53,7 @@ class RobotContainer {
   // The robot's subsystems are defined here
   IntakeSubsystem m_intakeSubsystem;
   StagerSubsystem m_stagerSubsystem;
+  ShooterSubsystem m_shooterSubsystem;
   DriveSubsystem m_driveSubsystem;
 
   void ConfigureBindings();
@@ -69,9 +72,10 @@ class RobotContainer {
   SimpleIntake m_simpleIntake{&m_intakeSubsystem, &m_stagerSubsystem};
   SimpleOuttake m_simpleOuttake{&m_intakeSubsystem, &m_stagerSubsystem};
   StopIntake m_stopIntake{&m_intakeSubsystem};
-  ChargeShooter m_chargeShooter{&m_intakeSubsystem};
+  ChargeShooter m_chargeShooter{&m_shooterSubsystem, &m_intakeSubsystem};
   StageShooter m_stageShooter{&m_stagerSubsystem};
-  StopShooter m_stopShooter{&m_stagerSubsystem};
+  StopShooter m_stopShooter{&m_shooterSubsystem};
+  StopStager m_stopStager{&m_stagerSubsystem};
   DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
 
 };

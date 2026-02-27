@@ -5,21 +5,21 @@
 #include <frc2/command/CommandHelper.h>
 #include <frc/XboxController.h>
 
-#include "subsystems/ShooterSubsystem.h"
+#include "subsystems/StagerSubsystem.h"
 
-class StopShooter
-  : public frc2::CommandHelper<frc2::Command, StopShooter> {
+class StopStager
+  : public frc2::CommandHelper<frc2::Command, StopStager> {
 public:
   /**
    * Creates a new StopShooter.
    *
-   * @param shooter The pointer to the shooter subsystem
+   * @param stager The pointer to the stager subsystem
    */
-  explicit StopShooter(ShooterSubsystem* shooter);
+  explicit StopStager(StagerSubsystem* stager);
 
   void Initialize() override;
   void End(bool interrupted) override;
   
 private:
-  ShooterSubsystem* m_shooter;
+  StagerSubsystem* m_stager;
 };

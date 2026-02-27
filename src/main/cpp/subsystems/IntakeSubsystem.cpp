@@ -8,31 +8,20 @@
 
 IntakeSubsystem::IntakeSubsystem() 
 
-: m_intakeLeftSparkMax{IntakeConstants::kIntakeLeftMotorID, IntakeConstants::kIntakeMotorType},
- m_intakeRightSparkMax{IntakeConstants::kIntakeRightMotorID, IntakeConstants::kIntakeMotorType} {
+: m_intakeSparkMax{IntakeConstants::kIntakeMotorID, IntakeConstants::kIntakeMotorType} {
 
 
-   #ifdef BURNINTAKESPARKMAX
+  #ifdef BURNINTAKESPARKMAX
 
-  rev::spark::SparkMaxConfig intakeRightSparkMaxConfig{};
+  rev::spark::SparkMaxConfig intakeSparkMaxConfig{};
 
-  intakeRightSparkMaxConfig
-  .VoltageCompensation(RobotConstants::kVoltageCompentationValue)
-  .SetIdleMode(IntakeConstants::kIntakeMotorIdleMode)
-  .SmartCurrentLimit(IntakeConstants::kIntakeMotorCurrentLimit.value())
-  .Follow(IntakeConstants::kIntakeLeftMotorID, true);
-
-  m_intakeRightSparkMax.Configure(intakeRightSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
-
-rev::spark::SparkMaxConfig intakeLeftSparkMaxConfig{};
-
-  intakeLeftSparkMaxConfig
+  intakeSparkMaxConfig
   .VoltageCompensation(RobotConstants::kVoltageCompentationValue)
   .SetIdleMode(IntakeConstants::kIntakeMotorIdleMode)
   .SmartCurrentLimit(IntakeConstants::kIntakeMotorCurrentLimit.value());
 
 
-  m_intakeLeftSparkMax.Configure(intakeLeftSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
+  m_intakeSparkMax.Configure(intakeSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
 //auto nt_inst = nt::NetworkTableInstance::GetDefault();
 //auto nt_table = nt_inst.GetTable("Intake");
 //
@@ -51,10 +40,10 @@ void IntakeSubsystem::Periodic() {
 
 void IntakeSubsystem::SetIntakeMotorPower(double power) {
   // Sets the motor's power (between -1.0 and 1.0). 
-  m_intakeLeftSparkMax.Set(power);    
+  m_intakeSparkMax.Set(power);    
 
 }
 
 double IntakeSubsystem::GetDirection() {
-  return m_intakeLeftSparkMax.Get();
+  return m_intakeSparkMax.Get();
 }

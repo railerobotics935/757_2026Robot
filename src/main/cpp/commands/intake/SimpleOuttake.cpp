@@ -12,8 +12,8 @@ void SimpleOuttake::Initialize() {
 #ifdef PRINTDEBUG
   std::cout << "SimpleIntake Initialized\r\n";
 #endif
-  m_intake->SetIntakeMotorPower(-0.7);
-  m_stager->SetStagerMotorPower(-0.5);
+  m_intake->SetIntakeMotorPower(-1.0);
+  m_stager->SetStagerMotorPower(-0.7);
 }
 
 

@@ -2,9 +2,9 @@
 #include "Constants.h"
 #include "commands/shooter/StopShooter.h"
 
-StopShooter::StopShooter(StagerSubsystem *stager) : m_stager{stager} {
+StopShooter::StopShooter(ShooterSubsystem *shooter) : m_shooter{shooter} {
 
-  AddRequirements(m_stager);
+  AddRequirements(m_shooter);
 
 }
 
@@ -12,7 +12,7 @@ void StopShooter::Initialize() {
 #ifdef PRINTDEBUG
   std::cout << "StopShooter Initialized\r\n";
 #endif
-  m_stager->SetStagerMotorPower(0.0);
+  m_shooter->SetShooterMotorPower(0.0);
 }
 
 
@@ -20,5 +20,5 @@ void StopShooter::End(bool interrupted) {
 #ifdef PRINTDEBUG
   std::cout << "SimpleIntake Ended\r\n";
 #endif
-  m_stager->SetStagerMotorPower(0.0);
+  m_shooter->SetShooterMotorPower(0.0);
 }

@@ -18,7 +18,8 @@ RobotContainer::RobotContainer() {
   // Set Default Commands for Subsystems
   m_driveSubsystem.SetDefaultCommand(std::move(m_driveWithController));
   m_intakeSubsystem.SetDefaultCommand(std::move(m_stopIntake));
-  m_stagerSubsystem.SetDefaultCommand(std::move(m_stopShooter));
+  m_stagerSubsystem.SetDefaultCommand(std::move(m_stopStager));
+  m_shooterSubsystem.SetDefaultCommand(std::move(m_stopShooter));
 
   frc::Shuffleboard::GetTab("Autonomous").Add(m_autoChooser);
 
@@ -43,7 +44,7 @@ void RobotContainer::ConfigureBindings() {
   fieldRelativeButton.OnTrue(frc2::cmd::RunOnce([&] {m_driveSubsystem.SetFieldRelative();}, {}));
   intakeButton.WhileTrue(SimpleIntake{&m_intakeSubsystem, &m_stagerSubsystem}.ToPtr());
   outakeButton.WhileTrue(SimpleOuttake{&m_intakeSubsystem, &m_stagerSubsystem}.ToPtr());
-  chargeButton.WhileTrue(ChargeShooter{&m_intakeSubsystem}.ToPtr());
+  chargeButton.WhileTrue(ChargeShooter{&m_shooterSubsystem, &m_intakeSubsystem}.ToPtr());
   stageButton.WhileTrue(StageShooter{&m_stagerSubsystem}.ToPtr());
 
   // Schedule `ExampleMethodCommand` when the Xbox controller's B button is
