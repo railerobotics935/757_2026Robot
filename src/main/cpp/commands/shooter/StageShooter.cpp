@@ -11,7 +11,7 @@ void StageShooter::Initialize() {
 #ifdef PRINTDEBUG
   std::cout << "StageShooter Initialized\r\n";
 #endif
-  m_stager->SetStagerMotorPower(-1.00);
+  m_stager->SetStagerMotorPower(-0.5);
 }
 
 

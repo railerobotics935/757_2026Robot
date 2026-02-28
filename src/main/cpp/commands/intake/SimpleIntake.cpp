@@ -12,7 +12,7 @@ void SimpleIntake::Initialize() {
 #ifdef PRINTDEBUG
   std::cout << "SimpleIntake Initialized\r\n";
 #endif
-  m_intake->SetIntakeMotorPower(0.6);
+  m_intake->SetIntakeMotorPower(0.9);
   m_stager->SetStagerMotorPower(1.0);
 }
 
