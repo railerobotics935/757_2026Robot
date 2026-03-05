@@ -5,11 +5,13 @@
 #include "Robot.h"
 #include <iostream>
 
-//#include <frc2/command/CommandScheduler.h>
+#include <frc2/command/CommandScheduler.h>
 
-//Robot::Robot() {}
+Robot::Robot() {}
 
-void Robot::RobotInit() {}
+void Robot::RobotInit() {
+  std::cout << "RobotInit" << std::endl;
+}
 
 /**
  * This function is called every 20 ms, no matter the mode. Use

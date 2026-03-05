@@ -24,7 +24,6 @@ RobotContainer::RobotContainer() {
   frc::Shuffleboard::GetTab("Autonomous").Add(m_autoChooser);
 
   m_autoChooser.SetDefaultOption("Test Auto", m_testAuto);
-
 }
 
 void RobotContainer::ConfigureBindings() {

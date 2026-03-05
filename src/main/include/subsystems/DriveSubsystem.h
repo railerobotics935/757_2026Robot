@@ -29,10 +29,10 @@
 #include <pathplanner/lib/config/RobotConfig.h>
 #include <pathplanner/lib/controllers/PPHolonomicDriveController.h>
 
+
 #include "Constants.h"
 #include "SwerveModule.h"
-#include "sensors/ApriltagSensor.h"
-//#include "sensors/ApriltagSensor.h"
+#include "subsystems/sensors/ApriltagSensor.h"
 
 class DriveSubsystem : public frc2::SubsystemBase {
 public:
@@ -192,10 +192,18 @@ public:
   */
   void EstimatePoseWithApriltag();
 
+  void AddVisionMeasurement(const frc::Pose2d& visionMeasurement,
+                            units::second_t timestamp);
+  void AddVisionMeasurement(const frc::Pose2d& visionMeasurement,
+                            units::second_t timestamp,
+                            const Eigen::Vector3d& stdDevs);
+  void ResetPose(const frc::Pose2d& pose, bool resetSimPose);
   /** 
    * Returns a pathplanner command to drive to the amp using pose estimation
   */
+
 //  frc2::CommandPtr DriveToAmp(); Unstable/untested
+
 
 //  frc2::CommandPtr VisionIntakePath(); Unstable/untested
 
@@ -265,10 +273,10 @@ public:
    */
 
 frc::SwerveDriveKinematics<4> m_driveKinematics{
-    frc::Translation2d{units::meter_t(RobotConstants::kWheelBase / 2),units::meter_t(RobotConstants::kWheelWidth/2)},
-    frc::Translation2d{units::meter_t(RobotConstants::kWheelBase / 2),units::meter_t(-RobotConstants::kWheelWidth/2)},
-    frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2),units::meter_t(RobotConstants::kWheelWidth/2)},
-    frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2),units::meter_t(-RobotConstants::kWheelWidth/2)}};
+    frc::Translation2d{units::meter_t(RobotConstants::kWheelBase / 2),units::meter_t(RobotConstants::kWheelWidth/2)},     //Front Left
+    frc::Translation2d{units::meter_t(RobotConstants::kWheelBase / 2),units::meter_t(-RobotConstants::kWheelWidth/2)},    //Front Right
+    frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2),units::meter_t(RobotConstants::kWheelWidth/2)},    //Back Right
+    frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2),units::meter_t(-RobotConstants::kWheelWidth/2)}};  //Back Left
 
 private:
   nt::NetworkTableEntry nte_fl_set_angle;
@@ -354,7 +362,6 @@ private:
 
   // Pose Estimator
   frc::SwerveDrivePoseEstimator<4> m_poseEstimator;
-  //ApriltagSensor m_poseEstimator;
 
   // Slew rate filter variables for controlling lateral acceleration
   double m_currentRotation = 0.0;
@@ -380,6 +387,7 @@ private:
   //frc::AprilTagFieldLayout fieldLayout{deployDirectory.string()}; 
   frc::Pose2d centerOfSpeaker{};
 
+
   // Apriltag sensor 
   //ApriltagSensor m_frontCameraSensor{"FrontCam", CameraConstants::FrontCamera::kPose3d};
 //  ApriltagSensor m_backRightCameraSensor{"BackRightCam", CameraConstants::BackRightCamera::kPose3d}; 
@@ -388,6 +396,5 @@ private:
   // Field poess and array to hold bezier points
   std::vector<frc::Pose2d> m_fieldPoses;
   std::vector<frc::Translation2d> m_bezierPoints;
-  
 };
 

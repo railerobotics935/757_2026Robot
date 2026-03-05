@@ -62,14 +62,14 @@ DriveSubsystem::DriveSubsystem()
                 {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
                 m_backLeft.GetPosition(), m_backRight.GetPosition()},
                 frc::Pose2d{(units::meter_t)3.0, (units::meter_t)3.0, m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw)},
-                {0.05, 0.05, 0.001}, // Standard Deviation of the encoder position value
-                {0.2, 0.2, 0.05}} // Standard Deviation of vision pose esitmation
+//                {0.05, 0.05, 0.001}, // Standard Deviation of the encoder position value
+//                {0.2, 0.2, 0.05}} // Standard Deviation of vision pose esitmation
+                {0.1, 0.1, 0.001}, // Standard Deviation of the encoder position value
+                {0.504911, 0.504911, 1.00982}} // Standard Deviation of vision pose esitmation
 {
+  RobotConfig config = RobotConfig::fromGUISettings();
 
-// TODO: fix me: next statement causes the deployed to crash:
-RobotConfig config = RobotConfig::fromGUISettings();
-
-AutoBuilder::configure(
+  AutoBuilder::configure(
         [this](){ return GetOdometryPose(); }, // Robot pose supplier
         [this](frc::Pose2d pose){ ResetOdometry(pose); }, // Method to reset odometry (will be called if your auto has a starting pose)
         [this](){ return GetRobotRelativeSpeeds(); }, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
@@ -92,7 +92,6 @@ AutoBuilder::configure(
         },
         this // Reference to this subsystem to set requirements
     );
-
 
   // Initialize shuffleboard communication
   auto nt_inst = nt::NetworkTableInstance::GetDefault();
@@ -170,6 +169,8 @@ AutoBuilder::configure(
   m_robotAngleController.EnableContinuousInput(0, (std::numbers::pi * 2));
 
   m_timer.Restart();
+
+  std::cout << "DriveSubsystem end of constructor" << std::endl;
 }
 
 // Returns true is the alliance selected is red
@@ -190,8 +191,8 @@ void DriveSubsystem::Periodic() {
                       {m_frontLeft.GetPosition(), m_frontRight.GetPosition(), m_backLeft.GetPosition(), m_backRight.GetPosition()});
 
   // set odometry relative to the apriltag
- // if (GetLinearRobotSpeed() < 1.0 && GetTurnRate() < 20.0)
-   // EstimatePoseWithApriltag();
+  if (GetLinearRobotSpeed() < 1.0 && GetTurnRate() < 20.0)
+    EstimatePoseWithApriltag();
   
   UpdateNTE();
   GetTurningPIDParameters();
@@ -237,7 +238,7 @@ void DriveSubsystem::UpdateNTE() {
   nte_robot_y.SetDouble((double)m_odometry.GetPose().Y());
 
   // Set robot position to shuffleboard field :)
-  m_field.SetRobotPose(GetOdometryPose());
+//  m_field.SetRobotPose(GetOdometryPose());
 }
 
 void DriveSubsystem::GetTurningPIDParameters() {
@@ -591,9 +592,21 @@ void DriveSubsystem::ResetOdometry(frc::Pose2d pose) {
       pose);
 }
 
-/*
+void DriveSubsystem::AddVisionMeasurement(const frc::Pose2d& visionMeasurement,
+                                       units::second_t timestamp) {
+  m_poseEstimator.AddVisionMeasurement(visionMeasurement, timestamp);
+}
+
+void DriveSubsystem::AddVisionMeasurement(const frc::Pose2d& visionMeasurement,
+                                       units::second_t timestamp,
+                                       const Eigen::Vector3d& stdDevs) {
+  wpi::array<double, 3> newStdDevs{stdDevs(0), stdDevs(1), stdDevs(2)};
+  m_poseEstimator.AddVisionMeasurement(visionMeasurement, timestamp, newStdDevs);
+}
+
 void DriveSubsystem::EstimatePoseWithApriltag() {
-#ifdef DEBUGPOSEESTIMATION
+/*
+  #ifdef DEBUGPOSEESTIMATION
   double startEstiamtionTime = (double)m_timer.GetFPGATimestamp();
   int numberOfValidTags = 0;
 #endif
@@ -646,8 +659,9 @@ void DriveSubsystem::EstimatePoseWithApriltag() {
   nte_numberOfTagsAdded.SetInteger(numberOfValidTags);
   nte_debugTimeForPoseEstimation.SetDouble((double)m_timer.GetFPGATimestamp() - startEstiamtionTime);
 #endif
+*/ 
 }       
- */ 
+ 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Utility math functions

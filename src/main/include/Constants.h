@@ -262,10 +262,11 @@ constexpr double kMaxEstimationSpeed = 0.25; // mps
 
 inline constexpr std::string_view kCameraName{"Camera1"};
 inline const frc::Transform3d kRobotToCam{
-    frc::Translation3d{0.5_m, 0.0_m, 0.5_m},
-    frc::Rotation3d{0_rad, -30_deg, 0_rad}};
+    frc::Translation3d{0.29_m, 0.29_m, 0.29_m},
+    frc::Rotation3d{0_rad, -20_deg, 45_deg}};
+//    frc::Rotation3d{0_rad, -20_deg, 0_rad}};
 inline const frc::AprilTagFieldLayout kTagLayout{
-   frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::kDefaultField)}; 
+   frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::k2026RebuiltWelded)}; 
 
 inline const Eigen::Matrix<double, 3, 1> kSingleTagStdDevs{4, 4, 8};
 inline const Eigen::Matrix<double, 3, 1> kMultiTagStdDevs{0.5, 0.5, 1};

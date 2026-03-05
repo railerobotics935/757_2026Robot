@@ -17,6 +17,7 @@
 #include "subsystems/StagerSubsystem.h"
 #include "subsystems/DriveSubsystem.h"
 #include "subsystems/ShooterSubsystem.h"
+#include "subsystems/sensors/ApriltagSensor.h"
 
 #include "commands/intake/SimpleIntake.h"
 #include "commands/intake/SimpleOuttake.h"
@@ -55,6 +56,11 @@ class RobotContainer {
   StagerSubsystem m_stagerSubsystem;
   ShooterSubsystem m_shooterSubsystem;
   DriveSubsystem m_driveSubsystem;
+  
+  ApriltagSensor m_apriltagSensor{[=, this](frc::Pose2d pose, units::second_t timestamp,
+                          Eigen::Matrix<double, 3, 1> stddevs) {
+    m_driveSubsystem.AddVisionMeasurement(pose, timestamp, stddevs);
+  }};
 
   void ConfigureBindings();
   
@@ -77,5 +83,4 @@ class RobotContainer {
   StopShooter m_stopShooter{&m_shooterSubsystem};
   StopStager m_stopStager{&m_stagerSubsystem};
   DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
-
 };
