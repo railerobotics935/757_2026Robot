@@ -34,19 +34,20 @@
  */
 
 #define BURNINTAKESPARKMAX
-// #define BURNSHOOTERSPARKMAX
+#define BURNSHOOTERSPARKMAX
 #define BURNMODULESPARKMAX
 #define PRINTDEBUG
 #define SETTURNINGZEROS
+//#define CHASSIS_ONLY
 
 namespace RobotConstants {
 
 constexpr double kVoltageCompentationValue = 11.0;
 
 const units::meter_t kWheelBase =
-    0.3937_m; 
+     0.42545_m;
 const units::meter_t kWheelWidth =
-    0.6411_m; 
+     0.70485_m;
 }  // namespace RobotConstants
 
 namespace ModuleConstants {
@@ -99,10 +100,10 @@ constexpr double kTurningFF = 0;
 constexpr double kTurningMinOutput = -1;
 constexpr double kTurningMaxOutput = 1;
 
-constexpr double kFrontLeftEncoderOffset = (2.79 / (std::numbers::pi * 2));
-constexpr double kFrontRightEncoderOffset = (3.58 / (std::numbers::pi * 2));
-constexpr double kBackLeftEncoderOffset = (1.71 / (std::numbers::pi * 2));
-constexpr double kBackRightEncoderOffset = (2.74 / (std::numbers::pi * 2));
+constexpr double kFrontLeftEncoderOffset = 0;//(2.79 / (std::numbers::pi * 2));
+constexpr double kFrontRightEncoderOffset = 0;//(3.58 / (std::numbers::pi * 2));
+constexpr double kBackLeftEncoderOffset = 0;//(1.71 / (std::numbers::pi * 2));
+constexpr double kBackRightEncoderOffset = 0;//(2.74 / (std::numbers::pi * 2));
 
 //constexpr double kFrontLeftEncoderOffset = 0;
 //constexpr double kFrontRightEncoderOffset = 0;
@@ -130,26 +131,26 @@ constexpr double kMagnitudeSlewRate = 7.0;   // percent per second (1 = 100%)
 constexpr double kRotationalSlewRate = 8.0;  // percent per second (1 = 100%)
 
 // CAN Sparkmax id numbers
-constexpr int kFrontLeftTurningMotorPort = 22;
-constexpr int kFrontRightTurningMotorPort = 17;
-constexpr int kBackLeftTurningMotorPort = 23;
-constexpr int kBackRightTurningMotorPort = 16;
+constexpr int kFrontLeftTurningMotorPort = 21;
+constexpr int kFrontRightTurningMotorPort = 13;
+constexpr int kBackLeftTurningMotorPort = 19;
+constexpr int kBackRightTurningMotorPort = 15;
 
-constexpr int kFrontLeftDriveMotorPort = 21;
-constexpr int kFrontRightDriveMotorPort = 18;
-constexpr int kBackLeftDriveMotorPort = 24;
-constexpr int kBackRightDriveMotorPort = 15;
+constexpr int kFrontLeftDriveMotorPort = 24;
+constexpr int kFrontRightDriveMotorPort = 12;
+constexpr int kBackLeftDriveMotorPort = 22;
+constexpr int kBackRightDriveMotorPort = 14;
 
 //Analog id numbers
-constexpr int kFrontLeftAnalogId = 0;
-constexpr int kFrontRightAnalogId = 3;
-constexpr int kBackLeftAnalogId = 1;
-constexpr int kBackRightAnalogId = 2;
+constexpr int kFrontLeftAnalogId = 4;
+constexpr int kFrontRightAnalogId = 1;
+constexpr int kBackLeftAnalogId = 2;
+constexpr int kBackRightAnalogId = 3;
 
 // PID Controller for the auto rotation of the robot
-constexpr double kRotationP = 2.5;
-constexpr double kRotationI = 0.002;
-constexpr double kRotationD = 0.2;
+constexpr double kRotationP = 2;
+constexpr double kRotationI = 0.0;
+constexpr double kRotationD = 0.05;
 
 // Offsets in radians for the encoders. the first number to to make zero forward, after that we
 // subtract an additional pi to make the full range -pi to pi instead of 0 to 2pi
@@ -218,8 +219,8 @@ constexpr units::ampere_t kIntakeMotorCurrentLimit = 40_A;
 namespace ShooterConstants {
 
 // Shooter Motors
-constexpr int kLeftShooterMotorID = 25;
-constexpr int kRightShooterMotorID = 14;
+constexpr int kLeftShooterMotorID = 18;
+constexpr int kRightShooterMotorID = 17;
 
 constexpr rev::spark::SparkLowLevel::MotorType kShooterMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
 constexpr rev::spark::SparkMaxConfig::IdleMode kShooterMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
@@ -230,7 +231,7 @@ constexpr units::ampere_t kShooterMotorCurrentLimit = 40_A;
 namespace StagerConstants {
 
 // Shooter Motors
-constexpr int kStagerMotorID = 19;
+constexpr int kStagerMotorID = 16;
 
 constexpr rev::spark::SparkLowLevel::MotorType kStagerMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
 constexpr rev::spark::SparkMaxConfig::IdleMode kStagerMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
@@ -261,12 +262,17 @@ constexpr double kMaxStandardDeviation = 3.0;
 constexpr double kMaxEstimationSpeed = 0.25; // mps
 
 inline constexpr std::string_view kCameraName{"Camera1"};
+inline constexpr std::string_view kCamera2Name{"Camera2"};
 inline const frc::Transform3d kRobotToCam{
-    frc::Translation3d{0.29_m, 0.29_m, 0.29_m},
-    frc::Rotation3d{0_rad, -20_deg, 45_deg}};
+    frc::Translation3d{0.313_m, 0.289_m, 0.164_m},
+    frc::Rotation3d{0_rad, 0_rad, 0_deg}};
+
+inline const frc::Transform3d kRobotToCam2{
+    frc::Translation3d{-0.31_m, 0.34_m, 0.1_m},
+    frc::Rotation3d{14_deg, 0_deg, 180_deg}};
 //    frc::Rotation3d{0_rad, -20_deg, 0_rad}};
 inline const frc::AprilTagFieldLayout kTagLayout{
-   frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::k2026RebuiltWelded)}; 
+   frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::k2026RebuiltAndyMark)}; 
 
 inline const Eigen::Matrix<double, 3, 1> kSingleTagStdDevs{4, 4, 8};
 inline const Eigen::Matrix<double, 3, 1> kMultiTagStdDevs{0.5, 0.5, 1};

@@ -2,6 +2,7 @@
 #include "Constants.h"
 #include "commands/intake/SimpleIntake.h"
 
+#ifndef CHASSIS_ONLY
 SimpleIntake::SimpleIntake(IntakeSubsystem *intake, StagerSubsystem *stager) : m_intake{intake}, m_stager{stager} {
 
   AddRequirements(m_intake);
@@ -24,3 +25,4 @@ void SimpleIntake::End(bool interrupted) {
   m_intake->SetIntakeMotorPower(0.0);
   m_stager->SetStagerMotorPower(0.0);
 }
+#endif

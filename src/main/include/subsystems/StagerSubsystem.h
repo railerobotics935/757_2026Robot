@@ -13,6 +13,8 @@
 #include <iostream>
 #include <Constants.h>
 
+#ifndef CHASSIS_ONLY
+
 class StagerSubsystem : public frc2::SubsystemBase {
  public:
   /**
@@ -54,3 +56,5 @@ class StagerSubsystem : public frc2::SubsystemBase {
   //Network Table Entry
   //nt::NetworkTableEntry nte_Stager;
 };
+
+#endif

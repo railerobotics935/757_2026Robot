@@ -2,6 +2,7 @@
 #include "Constants.h"
 #include "commands/shooter/StageShooter.h"
 
+#ifndef CHASSIS_ONLY
 StageShooter::StageShooter(StagerSubsystem *stager) : m_stager{stager} {
 
   AddRequirements(m_stager);
@@ -21,3 +22,4 @@ void StageShooter::End(bool interrupted) {
 #endif
   m_stager->SetStagerMotorPower(0.0);
 }
+#endif

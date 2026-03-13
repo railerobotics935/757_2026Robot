@@ -52,14 +52,16 @@ class RobotContainer {
   //};
 
   // The robot's subsystems are defined here
+#ifndef CHASSIS_ONLY
   IntakeSubsystem m_intakeSubsystem;
   StagerSubsystem m_stagerSubsystem;
   ShooterSubsystem m_shooterSubsystem;
+#endif
   DriveSubsystem m_driveSubsystem;
   
-  ApriltagSensor m_apriltagSensor{[=, this](frc::Pose2d pose, units::second_t timestamp,
-                          Eigen::Matrix<double, 3, 1> stddevs) {
-    m_driveSubsystem.AddVisionMeasurement(pose, timestamp, stddevs);
+
+  ApriltagSensor m_apriltagSensor{[=, this](frc::Pose2d pose, units::second_t timestamp) {
+    m_driveSubsystem.AddVisionMeasurement(pose, timestamp);
   }};
 
   void ConfigureBindings();
@@ -75,6 +77,7 @@ class RobotContainer {
   std::string m_testAuto = "Test Auto";
 
   // Commands
+ #ifndef CHASSIS_ONLY
   SimpleIntake m_simpleIntake{&m_intakeSubsystem, &m_stagerSubsystem};
   SimpleOuttake m_simpleOuttake{&m_intakeSubsystem, &m_stagerSubsystem};
   StopIntake m_stopIntake{&m_intakeSubsystem};
@@ -82,5 +85,6 @@ class RobotContainer {
   StageShooter m_stageShooter{&m_stagerSubsystem};
   StopShooter m_stopShooter{&m_shooterSubsystem};
   StopStager m_stopStager{&m_stagerSubsystem};
+#endif
   DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
 };

@@ -2,6 +2,7 @@
 #include "Constants.h"
 #include "commands/shooter/StopShooter.h"
 
+#ifndef CHASSIS_ONLY
 StopShooter::StopShooter(ShooterSubsystem *shooter) : m_shooter{shooter} {
 
   AddRequirements(m_shooter);
@@ -22,3 +23,4 @@ void StopShooter::End(bool interrupted) {
 #endif
   m_shooter->SetShooterMotorPower(0.0);
 }
+#endif

@@ -8,6 +8,7 @@
 #include "subsystems/IntakeSubsystem.h"
 #include "subsystems/StagerSubsystem.h"
 
+#ifndef CHASSIS_ONLY
 class SimpleIntake
   : public frc2::CommandHelper<frc2::Command, SimpleIntake> {
 public:
@@ -27,3 +28,4 @@ private:
 
   StagerSubsystem* m_stager;
 };
+#endif

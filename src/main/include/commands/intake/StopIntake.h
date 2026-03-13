@@ -7,6 +7,7 @@
 
 #include "subsystems/IntakeSubsystem.h"
 
+#ifndef CHASSIS_ONLY
 class StopIntake
   : public frc2::CommandHelper<frc2::Command, StopIntake> {
 public:
@@ -23,3 +24,4 @@ public:
 private:
   IntakeSubsystem* m_intake;
 };
+#endif

@@ -4,6 +4,8 @@
 
 #include "subsystems/ExampleSubsystem.h"
 
+#ifndef CHASSIS_ONLY
+
 ExampleSubsystem::ExampleSubsystem() {
   // Implementation of subsystem constructor goes here.
 }
@@ -26,3 +28,5 @@ void ExampleSubsystem::Periodic() {
 void ExampleSubsystem::SimulationPeriodic() {
   // Implementation of subsystem simulation periodic method goes here.
 }
+
+#endif

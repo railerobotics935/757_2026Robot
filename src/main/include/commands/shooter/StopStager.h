@@ -7,6 +7,7 @@
 
 #include "subsystems/StagerSubsystem.h"
 
+#ifndef CHASSIS_ONLY
 class StopStager
   : public frc2::CommandHelper<frc2::Command, StopStager> {
 public:
@@ -23,3 +24,4 @@ public:
 private:
   StagerSubsystem* m_stager;
 };
+#endif

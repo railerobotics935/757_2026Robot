@@ -8,9 +8,13 @@
 
 #include "subsystems/ExampleSubsystem.h"
 
+#ifndef CHASSIS_ONLY
+
 namespace autos {
 /**
  * Example static factory for an autonomous command.
  */
 frc2::CommandPtr ExampleAuto(ExampleSubsystem* subsystem);
 }  // namespace autos
+
+#endif

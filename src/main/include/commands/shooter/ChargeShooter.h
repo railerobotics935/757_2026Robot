@@ -8,6 +8,7 @@
 #include "subsystems/ShooterSubsystem.h"
 #include "subsystems/IntakeSubsystem.h"
 
+#ifndef CHASSIS_ONLY
 class ChargeShooter
   : public frc2::CommandHelper<frc2::Command, ChargeShooter> {
 public:
@@ -25,3 +26,4 @@ private:
   ShooterSubsystem* m_shooter;
   IntakeSubsystem* m_intake;
 };
+#endif

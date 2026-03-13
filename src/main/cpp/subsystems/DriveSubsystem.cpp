@@ -62,10 +62,10 @@ DriveSubsystem::DriveSubsystem()
                 {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
                 m_backLeft.GetPosition(), m_backRight.GetPosition()},
                 frc::Pose2d{(units::meter_t)3.0, (units::meter_t)3.0, m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw)},
-//                {0.05, 0.05, 0.001}, // Standard Deviation of the encoder position value
-//                {0.2, 0.2, 0.05}} // Standard Deviation of vision pose esitmation
-                {0.1, 0.1, 0.001}, // Standard Deviation of the encoder position value
-                {0.504911, 0.504911, 1.00982}} // Standard Deviation of vision pose esitmation
+                {0.05, 0.05, 0.001}, // Standard Deviation of the encoder position value
+                {0.2, 0.2, 0.05}} // Standard Deviation of vision pose esitmation
+//                {0.1, 0.1, 0.001}, // Standard Deviation of the encoder position value
+//                {3.0, 3.0, 1.00982}} // Standard Deviation of vision pose esitmation {0.504911, 0.504911, 1.00982}
 {
   RobotConfig config = RobotConfig::fromGUISettings();
 
@@ -170,7 +170,7 @@ DriveSubsystem::DriveSubsystem()
 
   m_timer.Restart();
 
-  std::cout << "DriveSubsystem end of constructor" << std::endl;
+//  std::cout << "DriveSubsystem end of constructor" << std::endl;
 }
 
 // Returns true is the alliance selected is red
@@ -191,8 +191,8 @@ void DriveSubsystem::Periodic() {
                       {m_frontLeft.GetPosition(), m_frontRight.GetPosition(), m_backLeft.GetPosition(), m_backRight.GetPosition()});
 
   // set odometry relative to the apriltag
-  if (GetLinearRobotSpeed() < 1.0 && GetTurnRate() < 20.0)
-    EstimatePoseWithApriltag();
+//  if (GetLinearRobotSpeed() < 1.0 && GetTurnRate() < 20.0)
+//    EstimatePoseWithApriltag();
   
   UpdateNTE();
   GetTurningPIDParameters();
@@ -538,6 +538,9 @@ double DriveSubsystem::GetLinearRobotSpeed() {
 
 void DriveSubsystem::ZeroHeading() {
   m_gyro.Reset();
+
+  //frc::Pose2d zeroPose{0_m, 0_m, frc::Rotation2d{0_deg}};
+  //ResetOdometry(zeroPose);
 }
 
 void DriveSubsystem::SetRobotRelative() {

@@ -6,6 +6,7 @@
 #include "subsystems/ShooterSubsystem.h"
 #include "Constants.h"
 
+#ifndef CHASSIS_ONLY
 ShooterSubsystem::ShooterSubsystem() 
 
 : m_leftShooterSparkMax{ShooterConstants::kLeftShooterMotorID, ShooterConstants::kShooterMotorType},
@@ -58,3 +59,4 @@ void ShooterSubsystem::SetShooterMotorPower(double power) {
 double ShooterSubsystem::GetDirection() {
   return m_leftShooterSparkMax.Get();
 }
+#endif

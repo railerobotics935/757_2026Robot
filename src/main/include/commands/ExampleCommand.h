@@ -9,6 +9,8 @@
 
 #include "subsystems/ExampleSubsystem.h"
 
+#ifndef CHASSIS_ONLY
+
 /**
  * An example command that uses an example subsystem.
  *
@@ -29,3 +31,4 @@ class ExampleCommand
  private:
   ExampleSubsystem* m_subsystem;
 };
+#endif

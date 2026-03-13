@@ -8,8 +8,7 @@
 
 #include "subsystems/sensors/ApriltagSensor.h"
 
-ApriltagSensor::ApriltagSensor(std::function<void(frc::Pose2d, units::second_t,
-                            Eigen::Matrix<double, 3, 1>)> estConsumer)
+ApriltagSensor::ApriltagSensor(std::function<void(frc::Pose2d, units::second_t)> estConsumer)
                              : m_estConsumer{estConsumer}
 {
   if (frc::RobotBase::IsSimulation()) {
@@ -19,7 +18,7 @@ ApriltagSensor::ApriltagSensor(std::function<void(frc::Pose2d, units::second_t,
 
     cameraProp = std::make_unique<photon::SimCameraProperties>();
 
-    cameraProp->SetCalibration(960, 720, frc::Rotation2d{90_deg});
+    cameraProp->SetCalibration(640, 360, frc::Rotation2d{90_deg});
     cameraProp->SetCalibError(.35, .10);
     cameraProp->SetFPS(15_Hz);
     cameraProp->SetAvgLatency(50_ms);
@@ -31,7 +30,7 @@ ApriltagSensor::ApriltagSensor(std::function<void(frc::Pose2d, units::second_t,
     cameraSim->EnableDrawWireframe(true);
   }
 
-  std::cout << "ApriltagSensor Constructor" << std::endl;
+//  std::cout << "ApriltagSensor Constructor" << std::endl;
 
 }
 
@@ -47,19 +46,44 @@ void ApriltagSensor::Periodic () {
     m_latestResult = result;
 
     // In sim only, add our vision estimate to the sim debug field
-    if (frc::RobotBase::IsSimulation()) {
-      if (visionEst) {
-        GetSimDebugField()
-            .GetObject("VisionEstimation")
-            ->SetPose(visionEst->estimatedPose.ToPose2d());
-      } else {
-        GetSimDebugField().GetObject("VisionEstimation")->SetPoses({});
-      }
-    }
+//    if (frc::RobotBase::IsSimulation()) {
+//      if (visionEst) {
+//        GetSimDebugField()
+//            .GetObject("VisionEstimation")
+//            ->SetPose(visionEst->estimatedPose.ToPose2d());
+//      } else {
+//        GetSimDebugField().GetObject("VisionEstimation")->SetPoses({});
+//      }
+//    }
 
     if (visionEst) {
-      m_estConsumer(visionEst->estimatedPose.ToPose2d(), visionEst->timestamp,
-                  GetEstimationStdDevs(visionEst->estimatedPose.ToPose2d()));
+      m_estConsumer(visionEst->estimatedPose.ToPose2d(), visionEst->timestamp);
+//      std::cout << "Estimated X: " << (double)visionEst->estimatedPose.ToPose2d().X() << " Estimated Y: " << (double)visionEst->estimatedPose.ToPose2d().Y() << std::endl;
+    }
+  }
+
+  for(const auto& result2 : m_camera2.GetAllUnreadResults()) {
+    auto visionEst2 = m_photonEstimator2.EstimateCoprocMultiTagPose(result2);
+    if (!visionEst2) {
+      //std::cout << "single tag fallback" << std::endl;
+      visionEst2 = m_photonEstimator2.EstimateLowestAmbiguityPose(result2);
+    }
+    m_latestResult2 = result2;
+
+//    // In sim only, add our vision estimate to the sim debug field
+//    if (frc::RobotBase::IsSimulation()) {
+//      if (visionEst) {
+//        GetSimDebugField()
+//            .GetObject("VisionEstimation")
+//            ->SetPose(visionEst->estimatedPose.ToPose2d());
+//      } else {
+//        GetSimDebugField().GetObject("VisionEstimation")->SetPoses({});
+//      }
+//    }
+
+    if (visionEst2) {
+      m_estConsumer(visionEst2->estimatedPose.ToPose2d(), visionEst2->timestamp);
+//      std::cout << "Estimated X: " << (double)visionEst->estimatedPose.ToPose2d().X() << " Estimated Y: " << (double)visionEst->estimatedPose.ToPose2d().Y() << std::endl;
     }
   }
 }
@@ -97,7 +121,7 @@ Eigen::Matrix<double, 3, 1> ApriltagSensor::GetEstimationStdDevs(frc::Pose2d est
   } else {
     estStdDevs = estStdDevs * (1 + (avgDist.value() * avgDist.value() / 30));
   }
-  std::cout << estStdDevs << std::endl;
+//  std::cout << estStdDevs << std::endl;
   return estStdDevs;
 }
 

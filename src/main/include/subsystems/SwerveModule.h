@@ -20,7 +20,7 @@
 #include <rev/SparkRelativeEncoder.h>               // for closed-loop control on Spark MAX
 #include <rev/SparkMax.h>
 //#include "rev/SparkAnalogSensor.h"
-//#include "ctre/phoenix6/CANCoder.hpp"
+#include "ctre/phoenix6/CANCoder.hpp"
 
 #include "Constants.h"
 
@@ -57,7 +57,7 @@ class SwerveModule {
   
   rev::spark::SparkRelativeEncoder m_drivingEncoder = m_drivingSparkMax.GetEncoder();
   //rev::spark::SparkAbsoluteEncoder m_turningAbsoluteEncoder = m_turningSparkMax.GetAbsoluteEncoder();
-  frc::AnalogEncoder m_turningAbsoluteEncoder;
+  ctre::phoenix6::hardware::CANcoder m_turningAbsoluteEncoder;
 
   rev::spark::SparkClosedLoopController m_drivingPIDController = m_drivingSparkMax.GetClosedLoopController();
 

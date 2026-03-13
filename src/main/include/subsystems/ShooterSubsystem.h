@@ -13,6 +13,8 @@
 #include <iostream>
 #include <Constants.h>
 
+#ifndef CHASSIS_ONLY
+
 class ShooterSubsystem : public frc2::SubsystemBase {
  public:
   /**
@@ -56,3 +58,4 @@ class ShooterSubsystem : public frc2::SubsystemBase {
   //nt::NetworkTableEntry nte_coralInShooter;
 };
 
+#endif

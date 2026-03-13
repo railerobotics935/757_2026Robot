@@ -6,6 +6,7 @@
 #include "subsystems/IntakeSubsystem.h"
 #include "Constants.h"
 
+#ifndef CHASSIS_ONLY
 IntakeSubsystem::IntakeSubsystem() 
 
 : m_intakeSparkMax{IntakeConstants::kIntakeMotorID, IntakeConstants::kIntakeMotorType} {
@@ -47,3 +48,4 @@ void IntakeSubsystem::SetIntakeMotorPower(double power) {
 double IntakeSubsystem::GetDirection() {
   return m_intakeSparkMax.Get();
 }
+#endif 

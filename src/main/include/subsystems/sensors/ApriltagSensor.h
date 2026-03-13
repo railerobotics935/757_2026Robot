@@ -37,8 +37,7 @@ public:
    * @param cameraName The camera name from network tables
    * @param cameraPose3d The 3d position of the camera 
   */
-  ApriltagSensor (std::function<void(frc::Pose2d, units::second_t,
-                            Eigen::Matrix<double, 3, 1>)> estConsumer);
+  ApriltagSensor (std::function<void(frc::Pose2d, units::second_t)> estConsumer);
 
   photon::PhotonPipelineResult GetLatestResult();
 
@@ -55,11 +54,15 @@ private:
 
   photon::PhotonPoseEstimator m_photonEstimator{CameraConstants::kTagLayout,
                                               CameraConstants::kRobotToCam};
+  photon::PhotonPoseEstimator m_photonEstimator2{CameraConstants::kTagLayout,
+                                              CameraConstants::kRobotToCam2};
   photon::PhotonCamera m_camera{CameraConstants::kCameraName};
+  photon::PhotonCamera m_camera2{CameraConstants::kCamera2Name};
   std::unique_ptr<photon::VisionSystemSim> visionSim;
   std::unique_ptr<photon::SimCameraProperties> cameraProp;
   std::shared_ptr<photon::PhotonCameraSim> cameraSim;
 
   photon::PhotonPipelineResult m_latestResult;
-  std::function<void(frc::Pose2d, units::second_t, Eigen::Matrix<double, 3, 1>)> m_estConsumer;
+  photon::PhotonPipelineResult m_latestResult2;
+  std::function<void(frc::Pose2d, units::second_t)> m_estConsumer;
 };

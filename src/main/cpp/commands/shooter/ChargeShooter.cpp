@@ -2,6 +2,7 @@
 #include "Constants.h"
 #include "commands/shooter/ChargeShooter.h"
 
+#ifndef CHASSIS_ONLY
 ChargeShooter::ChargeShooter(ShooterSubsystem *shooter, IntakeSubsystem *intake) : m_shooter{shooter}, m_intake{intake} {
 
   AddRequirements(m_shooter);
@@ -23,3 +24,4 @@ void ChargeShooter::End(bool interrupted) {
   m_shooter->SetShooterMotorPower(0.0);
   m_intake->SetIntakeMotorPower(0.0);
 }
+#endif

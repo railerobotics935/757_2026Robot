@@ -7,6 +7,7 @@
 
 #include "subsystems/ShooterSubsystem.h"
 
+#ifndef CHASSIS_ONLY
 class StopShooter
   : public frc2::CommandHelper<frc2::Command, StopShooter> {
 public:
@@ -23,3 +24,4 @@ public:
 private:
   ShooterSubsystem* m_shooter;
 };
+#endif

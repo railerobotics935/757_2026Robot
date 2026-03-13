@@ -2,6 +2,7 @@
 #include "Constants.h"
 #include "commands/shooter/StopStager.h"
 
+#ifndef CHASSIS_ONLY
 StopStager::StopStager(StagerSubsystem *stager) : m_stager{stager} {
 
   AddRequirements(m_stager);
@@ -22,3 +23,4 @@ void StopStager::End(bool interrupted) {
 #endif
   m_stager->SetStagerMotorPower(0.0);
 }
+#endif

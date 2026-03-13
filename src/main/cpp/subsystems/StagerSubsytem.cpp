@@ -6,6 +6,7 @@
 #include "subsystems/StagerSubsystem.h"
 #include "Constants.h"
 
+#ifndef CHASSIS_ONLY
 StagerSubsystem::StagerSubsystem() 
 
 : m_stagerSparkMax{StagerConstants::kStagerMotorID, StagerConstants::kStagerMotorType} {
@@ -48,3 +49,4 @@ void StagerSubsystem::SetStagerMotorPower(double power) {
 double StagerSubsystem::GetDirection() {
   return m_stagerSparkMax.Get();
 }
+#endif
