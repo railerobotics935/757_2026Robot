@@ -4,7 +4,6 @@
 
 #ifndef CHASSIS_ONLY
 SimpleIntake::SimpleIntake(IntakeSubsystem *intake, StagerSubsystem *stager) : m_intake{intake}, m_stager{stager} {
-
   AddRequirements(m_intake);
   AddRequirements(m_stager);
 }

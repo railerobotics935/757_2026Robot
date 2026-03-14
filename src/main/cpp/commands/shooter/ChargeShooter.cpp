@@ -4,7 +4,6 @@
 
 #ifndef CHASSIS_ONLY
 ChargeShooter::ChargeShooter(ShooterSubsystem *shooter, IntakeSubsystem *intake) : m_shooter{shooter}, m_intake{intake} {
-
   AddRequirements(m_shooter);
 }
 
@@ -15,7 +14,6 @@ void ChargeShooter::Initialize() {
   m_shooter->SetShooterMotorPower(-0.95);
   m_intake ->SetIntakeMotorPower(0.5);
 }
-
 
 void ChargeShooter::End(bool interrupted) {
 #ifdef PRINTDEBUG

@@ -23,13 +23,11 @@ RobotContainer::RobotContainer() {
   m_shooterSubsystem.SetDefaultCommand(std::move(m_stopShooter));
 #endif
   frc::Shuffleboard::GetTab("Autonomous").Add(m_autoChooser);
-
   m_autoChooser.SetDefaultOption("Test Auto", m_testAuto);
 }
 
 void RobotContainer::ConfigureBindings() {
   // Configure your trigger bindings here
-
   frc2::JoystickButton intakeButton (&m_operatorController, ControllerConstants::kIntakeButton); 
   frc2::JoystickButton outakeButton (&m_operatorController, ControllerConstants::kOuttakeButton);
   frc2::JoystickButton chargeButton (&m_operatorController, ControllerConstants::kChargeButton);
@@ -37,7 +35,6 @@ void RobotContainer::ConfigureBindings() {
   frc2::JoystickButton robotRelativeButton (&m_driveController, ControllerConstants::kRobotRelativeButton);
   frc2::JoystickButton fieldRelativeButton (&m_driveController, ControllerConstants::kFieldRelativeButton);
   frc2::JoystickButton resetButton (&m_driveController, ControllerConstants::kResetButton);
-
 
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
   resetButton.OnTrue(frc2::cmd::RunOnce([&] {m_driveSubsystem.ZeroHeading();}, {}));

@@ -39,18 +39,18 @@ void SwerveModule::ConfigureSparkMax() {
   rev::spark::SparkMaxConfig driveSparkMaxConfig{};
 
   driveSparkMaxConfig
-  .VoltageCompensation(RobotConstants::kVoltageCompentationValue)
-  .SetIdleMode(kDrivingMotorIdleMode)
-  .SmartCurrentLimit(kDrivingMotorCurrentLimit.value())
-  .Inverted(false);
+    .VoltageCompensation(RobotConstants::kVoltageCompentationValue)
+    .SetIdleMode(kDrivingMotorIdleMode)
+    .SmartCurrentLimit(kDrivingMotorCurrentLimit.value())
+    .Inverted(false);
 
   driveSparkMaxConfig.encoder
-  .PositionConversionFactor(kDrivingEncoderPositionFactor)
-  .VelocityConversionFactor(kDrivingEncoderVelocityFactor);
+    .PositionConversionFactor(kDrivingEncoderPositionFactor)
+    .VelocityConversionFactor(kDrivingEncoderVelocityFactor);
 
   driveSparkMaxConfig.closedLoop
-  .Pidf(kDrivingP, kDrivingI, kDrivingD, kDrivingFF)
-  .OutputRange(kDrivingMinOutput, kDrivingMaxOutput);
+    .Pidf(kDrivingP, kDrivingI, kDrivingD, kDrivingFF)
+    .OutputRange(kDrivingMinOutput, kDrivingMaxOutput);
 
   m_drivingSparkMax.Configure(driveSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
   
@@ -59,29 +59,29 @@ void SwerveModule::ConfigureSparkMax() {
   rev::spark::SparkMaxConfig turningSparkMaxConfig{};
 
   turningSparkMaxConfig
-  .VoltageCompensation(RobotConstants::kVoltageCompentationValue)
-  .SetIdleMode(kTurningMotorIdleMode)
-  .SmartCurrentLimit(kTurningMotorCurrentLimit.value())
-  .Inverted(true);
+    .VoltageCompensation(RobotConstants::kVoltageCompentationValue)
+    .SetIdleMode(kTurningMotorIdleMode)
+    .SmartCurrentLimit(kTurningMotorCurrentLimit.value())
+    .Inverted(true);
 
 //#if 0
   turningSparkMaxConfig.absoluteEncoder
-  .PositionConversionFactor(kTurningEncoderPositionFactor)
-  .VelocityConversionFactor(kTurningEncoderVelocityFactor)
-  .ZeroOffset(m_moduleEncoderOffset);
-//  .Inverted(kTurningEncoderInverted);
+    .PositionConversionFactor(kTurningEncoderPositionFactor)
+    .VelocityConversionFactor(kTurningEncoderVelocityFactor)
+    .ZeroOffset(m_moduleEncoderOffset);
+//    .Inverted(kTurningEncoderInverted);
 
-    turningSparkMaxConfig.absoluteEncoder
-  .PositionConversionFactor(kTurningEncoderPositionFactor)
-  .VelocityConversionFactor(kTurningEncoderVelocityFactor);
+//  turningSparkMaxConfig.absoluteEncoder
+//    .PositionConversionFactor(kTurningEncoderPositionFactor)
+//    .VelocityConversionFactor(kTurningEncoderVelocityFactor);
 
   turningSparkMaxConfig.closedLoop
-  .Pidf(kTurningP, kTurningI, kTurningD, kTurningFF)
-  .OutputRange(kTurningMinOutput, kTurningMaxOutput)
-  .SetFeedbackSensor(rev::spark::FeedbackSensor::kAbsoluteEncoder)
-  .PositionWrappingEnabled(true)
-  .PositionWrappingMinInput(kTurningEncoderPositionPIDMinInput.value())
-  .PositionWrappingMaxInput(kTurningEncoderPositionPIDMaxInput.value());
+    .Pidf(kTurningP, kTurningI, kTurningD, kTurningFF)
+    .OutputRange(kTurningMinOutput, kTurningMaxOutput)
+    .SetFeedbackSensor(rev::spark::FeedbackSensor::kAbsoluteEncoder)
+    .PositionWrappingEnabled(true)
+    .PositionWrappingMinInput(kTurningEncoderPositionPIDMinInput.value())
+    .PositionWrappingMaxInput(kTurningEncoderPositionPIDMaxInput.value());
 //#endif
 
   m_turningSparkMax.Configure(turningSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
@@ -164,4 +164,3 @@ double SwerveModule::GetDesiredAngle()
 {
   return desiredAngle;
 }
-

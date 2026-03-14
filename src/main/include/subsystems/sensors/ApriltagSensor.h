@@ -26,7 +26,7 @@
 #include "Constants.h"
 
 //#define MAX_NUM_TAGS 16
-
+#ifdef CAMERAS 
 class ApriltagSensor : public frc2::SubsystemBase{
 public:
     /**
@@ -66,3 +66,4 @@ private:
   photon::PhotonPipelineResult m_latestResult2;
   std::function<void(frc::Pose2d, units::second_t)> m_estConsumer;
 };
+#endif //CAMERAS

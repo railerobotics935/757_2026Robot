@@ -8,6 +8,7 @@
 
 #include "subsystems/sensors/ApriltagSensor.h"
 
+#ifdef CAMERAS
 ApriltagSensor::ApriltagSensor(std::function<void(frc::Pose2d, units::second_t)> estConsumer)
                              : m_estConsumer{estConsumer}
 {
@@ -138,3 +139,4 @@ void ApriltagSensor::ResetSimPose(frc::Pose2d pose) {
 frc::Field2d& ApriltagSensor::GetSimDebugField() { 
   return visionSim->GetDebugField(); 
 }
+#endif //CAMERAS

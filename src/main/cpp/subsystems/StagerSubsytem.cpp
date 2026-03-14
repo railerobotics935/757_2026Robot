@@ -7,19 +7,17 @@
 #include "Constants.h"
 
 #ifndef CHASSIS_ONLY
+
 StagerSubsystem::StagerSubsystem() 
+ : m_stagerSparkMax{StagerConstants::kStagerMotorID, StagerConstants::kStagerMotorType} {
 
-: m_stagerSparkMax{StagerConstants::kStagerMotorID, StagerConstants::kStagerMotorType} {
-
-
-   #ifdef BURNSHOOTERSPARKMAX
-
+#ifdef BURNSHOOTERSPARKMAX
   rev::spark::SparkMaxConfig StagerSparkMaxConfig{};
 
   StagerSparkMaxConfig
-  .VoltageCompensation(RobotConstants::kVoltageCompentationValue)
-  .SetIdleMode(StagerConstants::kStagerMotorIdleMode)
-  .SmartCurrentLimit(StagerConstants::kStagerMotorCurrentLimit.value());
+    .VoltageCompensation(RobotConstants::kVoltageCompentationValue)
+    .SetIdleMode(StagerConstants::kStagerMotorIdleMode)
+    .SmartCurrentLimit(StagerConstants::kStagerMotorCurrentLimit.value());
 
   m_stagerSparkMax.Configure(StagerSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
 
@@ -29,24 +27,22 @@ StagerSubsystem::StagerSubsystem()
 //nte_coralInStager = nt_table->GetEntry("Stager/Fuel in Stager");
 
   std::cout << "Flash Burned on shooter subsystem\r\n";
-  #else
+#else
   std::cout << "Flash was not burned on shooter subsystem\r\n";
-  #endif
+#endif
 }
-
 
 void StagerSubsystem::Periodic() {
 //  nte_coralInStager.SetBoolean(CoralInStager());
 }
 
-
 void StagerSubsystem::SetStagerMotorPower(double power) {
   // Sets the motor's power (between -1.0 and 1.0). 
   m_stagerSparkMax.Set(power);    
-
 }
 
 double StagerSubsystem::GetDirection() {
   return m_stagerSparkMax.Get();
 }
+
 #endif

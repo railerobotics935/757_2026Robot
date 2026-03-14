@@ -1,4 +1,3 @@
-
 #include <vector>
 
 #include <frc/apriltag/AprilTagFieldLayout.h>
@@ -20,7 +19,8 @@ OakDLiteSensor::OakDLiteSensor(std::string cameraName, frc::Pose3d cameraPose3d)
 
   // Cycle through each tag ID and get entry for each - status and pose
   char s_tableEntryPath[32]; 
-  for (uint8_t i = 0; i < MAX_NUM_OBJECTS; i++) {
+  for (uint8_t i = 0; i < MAX_NUM_OBJECTS; i++)
+  {
     // Status holds a string, either "TRACKED" or "LOST"
     sprintf(s_tableEntryPath, "%s/Object[%d]/Status", m_cameraName.c_str(), i);
     nte_status[i] = nt_table->GetEntry(s_tableEntryPath);

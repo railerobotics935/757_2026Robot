@@ -28,7 +28,6 @@
 #include "commands/shooter/StopShooter.h"
 #include "commands/drive/DriveWithController.h"
 
-
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -59,10 +58,12 @@ class RobotContainer {
 #endif
   DriveSubsystem m_driveSubsystem;
   
-
+#ifdef CAMERAS
   ApriltagSensor m_apriltagSensor{[=, this](frc::Pose2d pose, units::second_t timestamp) {
     m_driveSubsystem.AddVisionMeasurement(pose, timestamp);
   }};
+
+  #endif //CAEMEAS
 
   void ConfigureBindings();
   

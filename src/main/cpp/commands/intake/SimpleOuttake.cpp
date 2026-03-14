@@ -1,10 +1,8 @@
-
 #include "Constants.h"
 #include "commands/intake/SimpleOuttake.h"
 
 #ifndef CHASSIS_ONLY
 SimpleOuttake::SimpleOuttake(IntakeSubsystem *intake, StagerSubsystem *stager) : m_intake{intake}, m_stager{stager} {
-
   AddRequirements(m_intake);
   AddRequirements(m_stager);
 }
@@ -16,7 +14,6 @@ void SimpleOuttake::Initialize() {
   m_intake->SetIntakeMotorPower(-1.0);
   m_stager->SetStagerMotorPower(-0.9);
 }
-
 
 void SimpleOuttake::End(bool interrupted) {
 #ifdef PRINTDEBUG

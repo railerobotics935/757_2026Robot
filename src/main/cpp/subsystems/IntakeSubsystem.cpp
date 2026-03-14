@@ -7,20 +7,17 @@
 #include "Constants.h"
 
 #ifndef CHASSIS_ONLY
+
 IntakeSubsystem::IntakeSubsystem() 
+ : m_intakeSparkMax{IntakeConstants::kIntakeMotorID, IntakeConstants::kIntakeMotorType} {
 
-: m_intakeSparkMax{IntakeConstants::kIntakeMotorID, IntakeConstants::kIntakeMotorType} {
-
-
-  #ifdef BURNINTAKESPARKMAX
-
+#ifdef BURNINTAKESPARKMAX
   rev::spark::SparkMaxConfig intakeSparkMaxConfig{};
 
   intakeSparkMaxConfig
-  .VoltageCompensation(RobotConstants::kVoltageCompentationValue)
-  .SetIdleMode(IntakeConstants::kIntakeMotorIdleMode)
-  .SmartCurrentLimit(IntakeConstants::kIntakeMotorCurrentLimit.value());
-
+    .VoltageCompensation(RobotConstants::kVoltageCompentationValue)
+    .SetIdleMode(IntakeConstants::kIntakeMotorIdleMode)
+    .SmartCurrentLimit(IntakeConstants::kIntakeMotorCurrentLimit.value());
 
   m_intakeSparkMax.Configure(intakeSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
 //auto nt_inst = nt::NetworkTableInstance::GetDefault();
@@ -29,11 +26,10 @@ IntakeSubsystem::IntakeSubsystem()
 //nte_coralInIntake = nt_table->GetEntry("Intake/Fuel in Intake");
 
   std::cout << "Flash Burned on intake subsystem\r\n";
-  #else
+#else
   std::cout << "Flash was not burned on intake subsystem\r\n";
-  #endif
+#endif
 }
-
 
 void IntakeSubsystem::Periodic() {
 //  nte_coralInIntake.SetBoolean(CoralInIntake());
@@ -42,10 +38,10 @@ void IntakeSubsystem::Periodic() {
 void IntakeSubsystem::SetIntakeMotorPower(double power) {
   // Sets the motor's power (between -1.0 and 1.0). 
   m_intakeSparkMax.Set(power);    
-
 }
 
 double IntakeSubsystem::GetDirection() {
   return m_intakeSparkMax.Get();
 }
+
 #endif 

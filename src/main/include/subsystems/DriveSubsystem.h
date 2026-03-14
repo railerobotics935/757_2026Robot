@@ -186,12 +186,6 @@ public:
    */
   void ResetOdometry(frc::Pose2d pose);
 
-  /**
-   *  Uses the 3d transfomation information from apriltag to further 
-   *  update the position of the robot
-  */
-  void EstimatePoseWithApriltag();
-
   void AddVisionMeasurement(const frc::Pose2d& visionMeasurement,
                             units::second_t timestamp);
   void AddVisionMeasurement(const frc::Pose2d& visionMeasurement,

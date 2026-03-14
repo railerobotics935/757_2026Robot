@@ -22,7 +22,6 @@
 #include <iostream>
 #include <rev/config/SparkMaxConfig.h>
 
-
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants.  This should not be used for any other
@@ -33,12 +32,14 @@
  * they are needed.
  */
 
-#define BURNINTAKESPARKMAX
-#define BURNSHOOTERSPARKMAX
-#define BURNMODULESPARKMAX
-#define PRINTDEBUG
-#define SETTURNINGZEROS
+//#define BURNINTAKESPARKMAX
+//#define BURNSHOOTERSPARKMAX
+//#define BURNMODULESPARKMAX
+//#define PRINTDEBUG
+//#define SETTURNINGZEROS
 //#define CHASSIS_ONLY
+//#define CAMERAS
+//#define PID_TUNING_FROM_ELASTIC
 
 namespace RobotConstants {
 
@@ -104,11 +105,6 @@ constexpr double kFrontLeftEncoderOffset = 0;//(2.79 / (std::numbers::pi * 2));
 constexpr double kFrontRightEncoderOffset = 0;//(3.58 / (std::numbers::pi * 2));
 constexpr double kBackLeftEncoderOffset = 0;//(1.71 / (std::numbers::pi * 2));
 constexpr double kBackRightEncoderOffset = 0;//(2.74 / (std::numbers::pi * 2));
-
-//constexpr double kFrontLeftEncoderOffset = 0;
-//constexpr double kFrontRightEncoderOffset = 0;
-//constexpr double kBackLeftEncoderOffset = 0;
-//constexpr double kBackRightEncoderOffset = 0;
 
 constexpr rev::spark::SparkMaxConfig::IdleMode kDrivingMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
 constexpr rev::spark::SparkMaxConfig::IdleMode kTurningMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;

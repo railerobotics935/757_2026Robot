@@ -1,10 +1,8 @@
-
 #include "Constants.h"
 #include "commands/intake/StopIntake.h"
 
 #ifndef CHASSIS_ONLY
 StopIntake::StopIntake(IntakeSubsystem *intake) : m_intake{intake} {
-
   AddRequirements(m_intake);
 }
 
@@ -14,7 +12,6 @@ void StopIntake::Initialize() {
 #endif
   m_intake->SetIntakeMotorPower(0.0);
 }
-
 
 void StopIntake::End(bool interrupted) {
 #ifdef PRINTDEBUG
