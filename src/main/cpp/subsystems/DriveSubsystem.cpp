@@ -17,6 +17,7 @@
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <frc/DriverStation.h>
 #include <frc/Timer.h>
+#include <units/time.h>
 
 #include "pathplanner/lib/auto/AutoBuilder.h"
 #include "pathplanner/lib/commands/FollowPathCommand.h"
@@ -182,6 +183,7 @@ bool DriveSubsystem::InRedAlliance() {
 }
 
 void DriveSubsystem::Periodic() {
+ units::second_t timestamp_secondsStart = frc::Timer::GetFPGATimestamp();
   // Implementation of subsystem periodic method goes here.
   m_odometry.Update(m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw),
                     {m_frontLeft.GetPosition(), m_frontRight.GetPosition(), 
@@ -190,7 +192,7 @@ void DriveSubsystem::Periodic() {
   m_poseEstimator.Update(m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw), 
                     {m_frontLeft.GetPosition(), m_frontRight.GetPosition(), m_backLeft.GetPosition(), m_backRight.GetPosition()});
 
-  UpdateNTE();
+  //UpdateNTE();
 #ifdef PID_TUNING_FROM_ELASTIC
   GetTurningPIDParameters();
   GetDrivingPIDParameters();
@@ -201,6 +203,13 @@ void DriveSubsystem::Periodic() {
   //m_robotAngleController.SetP(nte_ktp.GetDouble(4.5));
   //m_robotAngleController.SetI(nte_kti.GetDouble(0.002));
   //m_robotAngleController.SetD(nte_ktd.GetDouble(0.05));
+
+  units::second_t timestamp_secondsEnd = frc::Timer::GetFPGATimestamp();
+
+  if (double(timestamp_secondsEnd - timestamp_secondsStart) > 0.005 ){
+    std::cout << "Drive Subsystem " << double(timestamp_secondsEnd - timestamp_secondsStart) << std::endl;
+  }
+
 }
 
 // This updates the Network table entries

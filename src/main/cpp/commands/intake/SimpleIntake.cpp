@@ -3,9 +3,10 @@
 #include "commands/intake/SimpleIntake.h"
 
 #ifndef CHASSIS_ONLY
-SimpleIntake::SimpleIntake(IntakeSubsystem *intake, StagerSubsystem *stager) : m_intake{intake}, m_stager{stager} {
+SimpleIntake::SimpleIntake(IntakeSubsystem *intake, StagerSubsystem *stager, HopperIntakeSubsystem *hopperIntake) : m_intake{intake}, m_stager{stager}, m_hopperIntake{hopperIntake} {
   AddRequirements(m_intake);
   AddRequirements(m_stager);
+  AddRequirements(m_hopperIntake);
 }
 
 void SimpleIntake::Initialize() {
@@ -14,6 +15,7 @@ void SimpleIntake::Initialize() {
 #endif
   m_intake->SetIntakeMotorPower(0.95);
   m_stager->SetStagerMotorPower(1.0);
+  m_hopperIntake->SetHopperIntakeMotorPower(0.95);
 }
 
 
@@ -23,5 +25,6 @@ void SimpleIntake::End(bool interrupted) {
 #endif
   m_intake->SetIntakeMotorPower(0.0);
   m_stager->SetStagerMotorPower(0.0);
+  m_hopperIntake->SetHopperIntakeMotorPower(0.0);
 }
 #endif

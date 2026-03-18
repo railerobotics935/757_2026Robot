@@ -3,6 +3,8 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "subsystems/ExampleSubsystem.h"
+#include "frc/Timer.h"
+#include "units/time.h"
 
 #ifndef CHASSIS_ONLY
 
@@ -23,6 +25,20 @@ bool ExampleSubsystem::ExampleCondition() {
 
 void ExampleSubsystem::Periodic() {
   // Implementation of subsystem periodic method goes here.
+
+  //Get time at start
+  units::second_t timestamp_seconds_1 = frc::Timer::GetFPGATimestamp();
+
+
+  //ROBOT PERIODITC THINGS HAPPEN
+
+  // Get time at end
+  units::second_t timestamp_seconds_2 = frc::Timer::GetFPGATimestamp();
+
+  // Take differnce
+
+
+  // if end - start is > 0.05, print subsystem name and time
 }
 
 void ExampleSubsystem::SimulationPeriodic() {

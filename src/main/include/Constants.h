@@ -94,7 +94,7 @@ constexpr double kDrivingMinOutput = -1;
 constexpr double kDrivingMaxOutput = 1;
 
 //constexpr double kTurningP = 5.5; //0.6*Kc
-constexpr double kTurningP = 0.1; //0.6*Kc 0.5
+constexpr double kTurningP = 1.0; //0.6*Kc 0.5
 constexpr double kTurningI = 0.0;  //Ki = 2*KP/Pc
 constexpr double kTurningD = 0.0; //was originally 0.004 0.125*Kp/Pc
 constexpr double kTurningFF = 0;
@@ -192,12 +192,14 @@ constexpr int kRobotRelativeButton = 8;
 constexpr int kResetButton = 2;
 
 //Operator Controls
-//Logitech controller
+//Xbox Controller
 //Operator Buttons
-constexpr int kIntakeButton = 8; //RT
-constexpr int kOuttakeButton = 6; //RB
-constexpr int kChargeButton = 5; //LB
-constexpr int kStageButton = 3; //B
+constexpr int kIntakeButton = 6; //RT
+constexpr int kOuttakeButton = 2; //B
+constexpr int kChargeButton = 5; //LT
+constexpr int kStageButton = 3; //X
+constexpr int kExtendHopperButton = 4; // Y
+constexpr int kRetractHopperButton = 1; //A
 } //ControllerConstants
 
 namespace IntakeConstants {
@@ -235,6 +237,26 @@ constexpr rev::spark::SparkMaxConfig::IdleMode kStagerMotorIdleMode = rev::spark
 constexpr units::ampere_t kStagerMotorCurrentLimit = 40_A;
 
 }  // namespace StagerConstants
+
+namespace HopperConstants{
+// Shooter Motors
+constexpr int kHopperMotorID = 29;
+
+constexpr rev::spark::SparkLowLevel::MotorType kHopperMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
+constexpr rev::spark::SparkMaxConfig::IdleMode kHopperMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
+
+constexpr units::ampere_t kHopperMotorCurrentLimit = 40_A;
+}
+
+namespace HopperIntakeConstants{
+// Shooter Motors
+constexpr int kHopperIntakeMotorID = 10;
+
+constexpr rev::spark::SparkLowLevel::MotorType kHopperIntakeMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
+constexpr rev::spark::SparkMaxConfig::IdleMode kHopperIntakeMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
+
+constexpr units::ampere_t kHopperIntakeMotorCurrentLimit = 40_A;
+}
 
 
 namespace CameraConstants {

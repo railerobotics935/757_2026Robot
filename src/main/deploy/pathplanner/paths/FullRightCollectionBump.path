@@ -1,0 +1,208 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.724,
+        "y": 3.912
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.8157432432432437,
+        "y": 1.685788288288288
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.736936936935238,
+        "y": 2.1045608108108116
+      },
+      "prevControl": {
+        "x": 5.307353541135471,
+        "y": 3.2494418250176005
+      },
+      "nextControl": {
+        "x": 5.836218216028504,
+        "y": 1.8399666653866567
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.00346846846927,
+        "y": 1.0116666666653282
+      },
+      "prevControl": {
+        "x": 6.298879546178596,
+        "y": 1.1804033980742292
+      },
+      "nextControl": {
+        "x": 7.5645698357509765,
+        "y": 0.877292696668222
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.310855855856659,
+        "y": 1.450867117115779
+      },
+      "prevControl": {
+        "x": 8.120577929804371,
+        "y": 1.2334180577588645
+      },
+      "nextControl": {
+        "x": 8.765026170455805,
+        "y": 1.9698916290304171
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.44363738738819,
+        "y": 3.2383108108094723
+      },
+      "prevControl": {
+        "x": 8.668358883973731,
+        "y": 2.9836352850754513
+      },
+      "nextControl": {
+        "x": 8.02866556482833,
+        "y": 3.7085958911467176
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.606092342343144,
+        "y": 3.606013513512175
+      },
+      "prevControl": {
+        "x": 7.777232121081857,
+        "y": 3.78825285101444
+      },
+      "nextControl": {
+        "x": 7.167376105982923,
+        "y": 3.138843596295912
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.442668918917219,
+        "y": 1.8696396396402282
+      },
+      "prevControl": {
+        "x": 8.23786113143682,
+        "y": 2.636755842067196
+      },
+      "nextControl": {
+        "x": 6.72220030493142,
+        "y": 1.1746087547458601
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.540934684684685,
+        "y": 2.6050450450456335
+      },
+      "prevControl": {
+        "x": 5.144527027027027,
+        "y": 2.594831081081081
+      },
+      "nextControl": {
+        "x": 3.119068198825562,
+        "y": 2.60773209272642
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.724,
+        "y": 3.912
+      },
+      "prevControl": {
+        "x": 2.47561468247406,
+        "y": 3.757348118549569
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.0377358490566038,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 2.9056603773584904,
+      "rotationDegrees": 130.0
+    },
+    {
+      "waypointRelativePos": 4.02830188679246,
+      "rotationDegrees": 127.79670067245594
+    },
+    {
+      "waypointRelativePos": 4.44654088050315,
+      "rotationDegrees": -160.0
+    },
+    {
+      "waypointRelativePos": 5.084905660377377,
+      "rotationDegrees": -126.62774031261647
+    },
+    {
+      "waypointRelativePos": 5.965408805031474,
+      "rotationDegrees": -135.2739182260612
+    },
+    {
+      "waypointRelativePos": 6.559748427672984,
+      "rotationDegrees": 179.27694984160183
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Fuel Intake",
+      "waypointRelativePos": 1.6947935368043092,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "Stop Fuel Intake",
+      "waypointRelativePos": 6.290843806104114,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -179.99999999984666
+  },
+  "reversed": false,
+  "folder": "Cont. Path",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}

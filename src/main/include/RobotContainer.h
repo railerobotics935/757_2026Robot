@@ -18,6 +18,8 @@
 #include "subsystems/DriveSubsystem.h"
 #include "subsystems/ShooterSubsystem.h"
 #include "subsystems/sensors/ApriltagSensor.h"
+#include "subsystems/HopperIntakeSubsystem.h"
+#include "subsystems/HopperSubsystem.h"
 
 #include "commands/intake/SimpleIntake.h"
 #include "commands/intake/SimpleOuttake.h"
@@ -27,6 +29,8 @@
 #include "commands/shooter/StopStager.h"
 #include "commands/shooter/StopShooter.h"
 #include "commands/drive/DriveWithController.h"
+#include "commands/hopper/ExtendHopper.h"
+#include "commands/hopper/RetractHopper.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -55,6 +59,8 @@ class RobotContainer {
   IntakeSubsystem m_intakeSubsystem;
   StagerSubsystem m_stagerSubsystem;
   ShooterSubsystem m_shooterSubsystem;
+  HopperIntakeSubsystem m_hopperIntakeSubsystem;
+  HopperSubsystem m_hopperSubsystem;
 #endif
   DriveSubsystem m_driveSubsystem;
   
@@ -75,17 +81,23 @@ class RobotContainer {
   frc::SendableChooser<std::string> m_autoChooser;
 
   // Autos
-  std::string m_testAuto = "Test Auto";
+  std::string m_defaultAuto = "Basic Auto C";
+  std::string m_basicAutoL = "Basic Auto L";
+  std::string m_basicAutoR = "Basic Auto R";
+  std::string m_blueRightTrench = "BlueRightTrench";
+  std::string m_blueRightBump = "BlueRightBump";
 
   // Commands
  #ifndef CHASSIS_ONLY
-  SimpleIntake m_simpleIntake{&m_intakeSubsystem, &m_stagerSubsystem};
+  SimpleIntake m_simpleIntake{&m_intakeSubsystem, &m_stagerSubsystem, &m_hopperIntakeSubsystem};
   SimpleOuttake m_simpleOuttake{&m_intakeSubsystem, &m_stagerSubsystem};
   StopIntake m_stopIntake{&m_intakeSubsystem};
   ChargeShooter m_chargeShooter{&m_shooterSubsystem, &m_intakeSubsystem};
   StageShooter m_stageShooter{&m_stagerSubsystem};
   StopShooter m_stopShooter{&m_shooterSubsystem};
   StopStager m_stopStager{&m_stagerSubsystem};
+  ExtendHopper m_extendHopper{&m_hopperSubsystem};
+  RetractHopper m_retractHopper{&m_hopperSubsystem};
 #endif
   DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
 };
