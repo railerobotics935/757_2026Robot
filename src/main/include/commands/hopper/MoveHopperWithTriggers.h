@@ -8,8 +8,8 @@
 #include "subsystems/HopperSubsystem.h"
 
 #ifndef CHASSIS_ONLY
-class ExtendHopper
-  : public frc2::CommandHelper<frc2::Command, ExtendHopper> {
+class MoveHopperWithTriggers
+  : public frc2::CommandHelper<frc2::Command, MoveHopperWithTriggers> {
 public:
   /**
    * Creates a new Simpleintake.
@@ -17,7 +17,7 @@ public:
    * @param hopper The pointer to the intake subsystem
    * 
    */
-  explicit ExtendHopper(HopperSubsystem* m_hopperSubsystem, frc::XboxController* operatorController);
+  explicit MoveHopperWithTriggers(HopperSubsystem* m_hopperSubsystem, frc::XboxController* operatorController);
 
   void Initialize() override;
   void Execute() override;

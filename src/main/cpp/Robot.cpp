@@ -4,6 +4,7 @@
 
 #include "Robot.h"
 #include <iostream>
+#include <frc/DataLogManager.h>
 
 #include <frc2/command/CommandScheduler.h>
 
@@ -11,6 +12,8 @@ Robot::Robot() {}
 
 void Robot::RobotInit() {
   std::cout << "RobotInit" << std::endl;
+  //frc::DataLogManager::LogNetworkTables(false);
+
 }
 
 /**
@@ -40,11 +43,11 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit() {
-  //m_autonomousCommand = m_container.nomousCommand();
+  m_autonomousCommand = m_container.GetAutonomousCommand();
 
-//  if (m_autonomousCommand) {
-//    frc2::CommandScheduler::GetInstance().Schedule(m_autonomousCommand.value());
-//  }
+  if (m_autonomousCommand) {
+    frc2::CommandScheduler::GetInstance().Schedule(m_autonomousCommand.value());
+  }
 }
 
 void Robot::AutonomousPeriodic() {}
@@ -54,9 +57,9 @@ void Robot::TeleopInit() {
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove
   // this line or comment it out.
-//  if (m_autonomousCommand) {
-//    m_autonomousCommand->Cancel();
-//  }
+  if (m_autonomousCommand) {
+    m_autonomousCommand->Cancel();
+  }
 }
 
 /**

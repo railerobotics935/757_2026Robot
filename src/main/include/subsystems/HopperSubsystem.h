@@ -34,6 +34,10 @@ class HopperSubsystem : public frc2::SubsystemBase {
    */
   double GetDirection();
 
+  double GetAngle();
+
+  void SetAngle(double setAngle);
+
   /**
    * @return If light sensor has detected a coral
    */
@@ -49,12 +53,19 @@ class HopperSubsystem : public frc2::SubsystemBase {
   // Motor Controllers
   rev::spark::SparkMax m_hopperSparkMax;
 
+  // PID Controller
+  rev::spark::SparkClosedLoopController m_hopperPID = m_hopperSparkMax.GetClosedLoopController();
+
+  // Encoder
+  rev::spark::SparkAbsoluteEncoder m_hopperEncoder = m_hopperSparkMax.GetAbsoluteEncoder();
+
   // Light Sensor is a digital input in the DIO port (digital input output)
   //frc::DigitalInput m_lightSensor{IntakeConstants::kLightSensorID};
 
 
   //Network Table Entry
   //nt::NetworkTableEntry nte_coralInIntake;
+  nt::NetworkTableEntry nte_hopperAngle;
 };
 
 #endif

@@ -31,6 +31,8 @@
 #include "commands/drive/DriveWithController.h"
 #include "commands/hopper/ExtendHopper.h"
 #include "commands/hopper/RetractHopper.h"
+#include "commands/intake/Jam.h"
+#include "commands/hopper/MoveHopperWithTriggers.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -81,23 +83,42 @@ class RobotContainer {
   frc::SendableChooser<std::string> m_autoChooser;
 
   // Autos
-  std::string m_defaultAuto = "Basic Auto C";
+  std::string m_defaultAuto = "Test Auto";
+  std::string m_newAuto = "New Auto";
+  //Baisc Autos
+  std::string m_basicAutoC = "Basic Auto C";
   std::string m_basicAutoL = "Basic Auto L";
   std::string m_basicAutoR = "Basic Auto R";
+  //Coninous Autos: DO NOT USE
   std::string m_blueRightTrench = "BlueRightTrench";
   std::string m_blueRightBump = "BlueRightBump";
+  //LeftFieldAutos
+  std::string m_blueLStartLBump = "BlueLStartLBump";
+  std::string m_blueRStartLBump = "BlueRStartLBump";
+  std::string m_blueCStartLBump = "BlueCStartLBump";
+  std::string m_blueLStartLTrench = "BlueLStartLTrench";
+  std::string m_blueRStartLTrench = "BlueRStartLTrench";
+  std::string m_blueCStartLTrench = "BlueCStartLTrench";
+  std::string m_blueLStartLTrenchLBump = "BlueLStartLTrenchLBump";
+  std::string m_blueRStartLTrenchLBump = "BlueRStartLTrenchLBump";
+  std::string m_blueCStartLTrenchLBump = "BlueCStartLTrenchLBump";
+  std::string m_blueLStartLBumpLTrench = "BlueLStartLBumpLTrench";
+  std::string m_blueRStartLBumpLTrench = "BlueRStartLBumpLTrench";
+  std::string m_blueCStartLBumpLTrench = "BlueCStartLBumpLTrench";
 
   // Commands
  #ifndef CHASSIS_ONLY
   SimpleIntake m_simpleIntake{&m_intakeSubsystem, &m_stagerSubsystem, &m_hopperIntakeSubsystem};
-  SimpleOuttake m_simpleOuttake{&m_intakeSubsystem, &m_stagerSubsystem};
+  SimpleOuttake m_simpleOuttake{&m_intakeSubsystem, &m_stagerSubsystem, &m_hopperIntakeSubsystem};
   StopIntake m_stopIntake{&m_intakeSubsystem};
-  ChargeShooter m_chargeShooter{&m_shooterSubsystem, &m_intakeSubsystem};
-  StageShooter m_stageShooter{&m_stagerSubsystem};
+  ChargeShooter m_chargeShooter{&m_shooterSubsystem};
+  StageShooter m_stageShooter{&m_stagerSubsystem, &m_intakeSubsystem};
   StopShooter m_stopShooter{&m_shooterSubsystem};
   StopStager m_stopStager{&m_stagerSubsystem};
-  ExtendHopper m_extendHopper{&m_hopperSubsystem};
+  ExtendHopper m_extendHopper{&m_hopperSubsystem, &m_operatorController};
   RetractHopper m_retractHopper{&m_hopperSubsystem};
+  Jam m_jam{&m_intakeSubsystem, &m_stagerSubsystem};
+  MoveHopperWithTriggers m_moveHopperWithTriggers {&m_hopperSubsystem, &m_operatorController};
 #endif
   DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
 };

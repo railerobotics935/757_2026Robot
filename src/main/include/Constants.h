@@ -40,6 +40,7 @@
 //#define CHASSIS_ONLY
 //#define CAMERAS
 //#define PID_TUNING_FROM_ELASTIC
+#define BURNHOPPERSPARKMAX
 
 namespace RobotConstants {
 
@@ -89,12 +90,12 @@ constexpr units::radian_t kTurningEncoderPositionPIDMaxInput =
 constexpr double kDrivingP = 0.0;
 constexpr double kDrivingI = 0.0;
 constexpr double kDrivingD = 0.0;
-constexpr double kDrivingFF = (4 / kDriveWheelFreeSpeedRps);
+constexpr double kDrivingFF = 0.0; //(10 / kDriveWheelFreeSpeedRps);
 constexpr double kDrivingMinOutput = -1;
 constexpr double kDrivingMaxOutput = 1;
 
 //constexpr double kTurningP = 5.5; //0.6*Kc
-constexpr double kTurningP = 1.0; //0.6*Kc 0.5
+constexpr double kTurningP =  0.0;//1.0; //0.6*Kc 0.5
 constexpr double kTurningI = 0.0;  //Ki = 2*KP/Pc
 constexpr double kTurningD = 0.0; //was originally 0.004 0.125*Kp/Pc
 constexpr double kTurningFF = 0;
@@ -127,15 +128,25 @@ constexpr double kMagnitudeSlewRate = 7.0;   // percent per second (1 = 100%)
 constexpr double kRotationalSlewRate = 8.0;  // percent per second (1 = 100%)
 
 // CAN Sparkmax id numbers
-constexpr int kFrontLeftTurningMotorPort = 21;
-constexpr int kFrontRightTurningMotorPort = 13;
-constexpr int kBackLeftTurningMotorPort = 19;
-constexpr int kBackRightTurningMotorPort = 15;
+// constexpr int kFrontLeftTurningMotorPort = 21;
+// constexpr int kFrontRightTurningMotorPort = 13;
+// constexpr int kBackLeftTurningMotorPort = 19;
+// constexpr int kBackRightTurningMotorPort = 15;
 
-constexpr int kFrontLeftDriveMotorPort = 24;
+// constexpr int kFrontLeftDriveMotorPort = 24;
+// constexpr int kFrontRightDriveMotorPort = 12;
+// constexpr int kBackLeftDriveMotorPort = 22;
+// constexpr int kBackRightDriveMotorPort = 14;
+
+constexpr int kFrontLeftTurningMotorPort = 15;
+constexpr int kFrontRightTurningMotorPort = 19;
+constexpr int kBackLeftTurningMotorPort = 13;
+constexpr int kBackRightTurningMotorPort = 21;
+
+constexpr int kFrontLeftDriveMotorPort = 14;
 constexpr int kFrontRightDriveMotorPort = 12;
 constexpr int kBackLeftDriveMotorPort = 22;
-constexpr int kBackRightDriveMotorPort = 14;
+constexpr int kBackRightDriveMotorPort = 24;
 
 //Analog id numbers
 constexpr int kFrontLeftAnalogId = 4;
@@ -200,6 +211,10 @@ constexpr int kChargeButton = 5; //LT
 constexpr int kStageButton = 3; //X
 constexpr int kExtendHopperButton = 4; // Y
 constexpr int kRetractHopperButton = 1; //A
+constexpr int kJamButton = 8; //menu button
+
+constexpr int kOperatorRightTrigger = 3;
+constexpr int kOperatorLeftTrigger = 2;
 } //ControllerConstants
 
 namespace IntakeConstants {
@@ -246,6 +261,19 @@ constexpr rev::spark::SparkLowLevel::MotorType kHopperMotorType = rev::spark::Sp
 constexpr rev::spark::SparkMaxConfig::IdleMode kHopperMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
 
 constexpr units::ampere_t kHopperMotorCurrentLimit = 40_A;
+constexpr double kMinimumExtension = 0.0;
+constexpr double kMaximumExtension = 0.0;
+
+constexpr double kHopperP = .0;
+constexpr double kHopperI = 0.0;
+constexpr double kHopperD = 0.0;
+
+constexpr double kPIDMinOutput = -1.0;
+constexpr double kPIDMaxOutput = 1.0;
+
+constexpr double kHopperMaxAngle = 0.790;
+constexpr double kHopperMinAngle = 0.528;
+
 }
 
 namespace HopperIntakeConstants{

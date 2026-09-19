@@ -17,13 +17,14 @@ public:
    *
    * @param shooter The pointer to the shooter subsystem
    */
-  explicit ChargeShooter(ShooterSubsystem* shooter,IntakeSubsystem* intake);
+  explicit ChargeShooter(ShooterSubsystem* shooter);
   
   void Initialize() override;
+  bool IsFinished() override;
   void End(bool interrupted) override;
+
   
 private:
   ShooterSubsystem* m_shooter;
-  IntakeSubsystem* m_intake;
-};
+  };
 #endif

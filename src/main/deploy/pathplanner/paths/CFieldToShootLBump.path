@@ -3,13 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.622646396396396,
-        "y": 5.3730292792792795
+        "x": 5.75,
+        "y": 5.25
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.406092242915699,
-        "y": 4.352110480192477
+        "x": 5.9128211007232725,
+        "y": 5.060291568033305
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.412,
+        "y": 5.260675675675676
+      },
+      "prevControl": {
+        "x": 4.0424062908294855,
+        "y": 5.893085991287483
+      },
+      "nextControl": {
+        "x": 2.8935178235277252,
+        "y": 4.740545274644164
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +36,8 @@
         "y": 3.912
       },
       "prevControl": {
-        "x": 3.5245600972447875,
-        "y": 4.135226845402259
+        "x": 3.5803365653782735,
+        "y": 3.7271681825100282
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +61,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "StarterPaths",
+  "folder": "CenterToShoot",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

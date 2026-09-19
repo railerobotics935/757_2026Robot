@@ -73,10 +73,10 @@ public:
 
 private:
   // Declare Network table entrys for object pos
-  nt::NetworkTableEntry nte_status[MAX_NUM_OBJECTS];
-  nt::NetworkTableEntry nte_location[MAX_NUM_OBJECTS];
-  nt::NetworkTableEntry nte_type[MAX_NUM_OBJECTS];
-  nt::NetworkTableEntry nte_latency;
+  //nt::NetworkTableEntry nte_status[MAX_NUM_OBJECTS];
+  //nt::NetworkTableEntry nte_location[MAX_NUM_OBJECTS];
+  //nt::NetworkTableEntry nte_type[MAX_NUM_OBJECTS];
+  //nt::NetworkTableEntry nte_latency;
 
   // Create local variables
   std::string m_cameraName;

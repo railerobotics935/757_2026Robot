@@ -7,11 +7,10 @@
 
 #include "subsystems/IntakeSubsystem.h"
 #include "subsystems/StagerSubsystem.h"
-#include "subsystems/HopperIntakeSubsystem.h"
 
 #ifndef CHASSIS_ONLY
-class SimpleOuttake
-  : public frc2::CommandHelper<frc2::Command, SimpleOuttake> {
+class Jam
+  : public frc2::CommandHelper<frc2::Command, Jam> {
 public:
   /**
    * Creates a new SimpleOuttake.
@@ -19,7 +18,7 @@ public:
    * @param intake The pointer to the intake subsystem
    * @param stager The pointer to the stager subsystem
    */
-  explicit SimpleOuttake(IntakeSubsystem* intake, StagerSubsystem* stager, HopperIntakeSubsystem* hopperIntake);
+  explicit Jam(IntakeSubsystem* intake, StagerSubsystem* stager);
 
   void Initialize() override;
   void End(bool interrupted) override;
@@ -27,6 +26,5 @@ public:
 private:
   IntakeSubsystem* m_intake;
   StagerSubsystem* m_stager;
-  HopperIntakeSubsystem* m_hopperIntake;
 };
 #endif

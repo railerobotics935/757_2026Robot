@@ -3,13 +3,17 @@
   "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
+    "CenterToShoot",
+    "CollectionPath",
     "Cont. Path",
-    "New Folder",
+    "StarterPaths",
     "StarterPathToCenterField"
   ],
   "autoFolders": [
+    "Basic Autos",
+    "Blue Left Field Autos",
     "Cont. Path",
-    "Basic Autos"
+    "AyspnAutos"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

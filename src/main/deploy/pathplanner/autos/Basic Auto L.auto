@@ -11,46 +11,28 @@
           }
         },
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "Charge Shooter"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Charge Shooter"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 4.0
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
             "name": "Shoot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 5.0
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Stop Shooter"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Stop Stager"
-                }
-              }
-            ]
           }
         }
       ]

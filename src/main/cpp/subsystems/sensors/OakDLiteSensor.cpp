@@ -5,7 +5,7 @@
 #include <frc/geometry/CoordinateSystem.h>
 
 #include "subsystems/sensors/OakDLiteSensor.h"
-
+/*
 // OakDLiteSensor::OakDLiteSensor(std::string cameraName, frc::Pose3d cameraPose3d, frc::SwerveDrivePoseEstimator<4>* poseEstimator) {
 OakDLiteSensor::OakDLiteSensor(std::string cameraName, frc::Pose3d cameraPose3d) {
 	
@@ -117,3 +117,4 @@ bool OakDLiteSensor::ObjectIsFuel(int object) {
 units::second_t OakDLiteSensor::GetTimestamp(int object) {
   return (units::second_t)(nte_location[object].GetLastChange() / 1000000.0) - (units::second_t)nte_latency.GetDouble(360.0);
 }
+  */

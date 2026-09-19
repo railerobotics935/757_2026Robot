@@ -11,13 +11,19 @@
 HopperSubsystem::HopperSubsystem() 
  : m_hopperSparkMax{HopperConstants::kHopperMotorID, HopperConstants::kHopperMotorType} {
 
-#ifdef BURNINTAKESPARKMAX
+#ifdef BURNHOPPERSPARKMAX
   rev::spark::SparkMaxConfig hopperSparkMaxConfig{};
 
   hopperSparkMaxConfig
     .VoltageCompensation(RobotConstants::kVoltageCompentationValue)
     .SetIdleMode(HopperConstants::kHopperMotorIdleMode)
-    .SmartCurrentLimit(HopperConstants::kHopperMotorCurrentLimit.value());
+    .SmartCurrentLimit(HopperConstants::kHopperMotorCurrentLimit.value())
+    .Inverted(true);
+  
+  hopperSparkMaxConfig.closedLoop
+  .Pid(HopperConstants::kHopperP, HopperConstants::kHopperI, HopperConstants::kHopperD)
+  .OutputRange(HopperConstants::kPIDMinOutput, HopperConstants::kPIDMaxOutput)
+  .SetFeedbackSensor(rev::spark::FeedbackSensor::kAbsoluteEncoder);
 
   m_hopperSparkMax.Configure(hopperSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
 //auto nt_inst = nt::NetworkTableInstance::GetDefault();
@@ -29,10 +35,18 @@ HopperSubsystem::HopperSubsystem()
 #else
   std::cout << "Flash was not burned on intake subsystem\r\n";
 #endif
+
+  // Initialize shuffleboard communication
+  //auto nt_inst = nt::NetworkTableInstance::GetDefault();
+  //auto nt_table = nt_inst.GetTable("Hopper");
+
+  //nte_hopperAngle = nt_table->GetEntry("Hopper Angle");
+
 }
 
 void HopperSubsystem::Periodic() {
 //  nte_coralInIntake.SetBoolean(CoralInIntake());
+  //nte_hopperAngle.SetDouble(GetAngle());
 }
 
 void HopperSubsystem::SetHopperMotorPower(double power) {
@@ -42,6 +56,20 @@ void HopperSubsystem::SetHopperMotorPower(double power) {
 
 double HopperSubsystem::GetDirection() {
   return m_hopperSparkMax.Get();
+}
+
+double HopperSubsystem::GetAngle() {
+  return m_hopperEncoder.GetPosition();
+}
+
+void HopperSubsystem::SetAngle(double setAngle) {
+  if(setAngle > HopperConstants::kHopperMaxAngle) {
+    setAngle = HopperConstants::kHopperMaxAngle;
+  }
+  if(setAngle < HopperConstants::kHopperMinAngle) {
+    setAngle = HopperConstants::kHopperMinAngle;
+  }
+  m_hopperPID.SetReference(setAngle, rev::spark::SparkLowLevel::ControlType::kPosition);
 }
 
 #endif 

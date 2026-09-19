@@ -10,7 +10,6 @@
 
 
 #include "commands/Autos.h"
-#include "commands/ExampleCommand.h"
 
 using namespace pathplanner;
 
@@ -27,6 +26,7 @@ RobotContainer::RobotContainer() {
   m_intakeSubsystem.SetDefaultCommand(std::move(m_stopIntake));
   m_stagerSubsystem.SetDefaultCommand(std::move(m_stopStager));
   m_shooterSubsystem.SetDefaultCommand(std::move(m_stopShooter));
+  m_hopperSubsystem.SetDefaultCommand(std::move(m_moveHopperWithTriggers));
 #endif
 
 NamedCommands::registerCommand("Fuel Intake", std::move(m_simpleIntake).ToPtr());
@@ -35,12 +35,30 @@ NamedCommands::registerCommand("Stop Shooter", std::move(m_stopShooter).ToPtr())
 NamedCommands::registerCommand("Stop Stager", std::move(m_stopStager).ToPtr());
 NamedCommands::registerCommand("Charge Shooter", std::move(m_chargeShooter).ToPtr());
 NamedCommands::registerCommand("Shoot", std::move(m_stageShooter).ToPtr());
+NamedCommands::registerCommand("Extend Hopper", std::move(m_extendHopper).ToPtr());
   frc::Shuffleboard::GetTab("Autonomous").Add(m_autoChooser);
-  m_autoChooser.SetDefaultOption("Basic Auto C", m_defaultAuto);
+  m_autoChooser.SetDefaultOption("New Auto", m_newAuto);
+  //Basic Autos
   m_autoChooser.AddOption("Basic Auto L", m_basicAutoL);
   m_autoChooser.AddOption("Basic Auto R", m_basicAutoR);
+  m_autoChooser.AddOption("Basic Auto C", m_defaultAuto);
+  //Coninuous Autos: DO NOT USE
   m_autoChooser.AddOption("BlueRightTrench", m_blueRightTrench);
   m_autoChooser.AddOption("BlueRightBump", m_blueRightBump);
+  //LeftFieldAutos
+  m_autoChooser.AddOption("BlueLStartLBump", m_blueLStartLBump);
+  m_autoChooser.AddOption("BlueRStartLBump", m_blueRStartLBump);
+  m_autoChooser.AddOption("BlueCStartLBump", m_blueCStartLBump);
+  m_autoChooser.AddOption("BlueLStartLTrench", m_blueLStartLTrench);
+  m_autoChooser.AddOption("BlueRStartLTrench", m_blueRStartLTrench);
+  m_autoChooser.AddOption("BlueCStartLTrench", m_blueCStartLTrench);
+  m_autoChooser.AddOption("BlueLStartLTrenchLBump", m_blueLStartLTrenchLBump);
+  m_autoChooser.AddOption("BlueRStartLTrenchLBump", m_blueRStartLTrenchLBump);
+  m_autoChooser.AddOption("BlueCStartLTrenchLBump", m_blueCStartLTrenchLBump);
+  m_autoChooser.AddOption("BlueLStartLBumpLTrench", m_blueLStartLBumpLTrench);
+  m_autoChooser.AddOption("BlueRStartLBumpLTrench", m_blueRStartLBumpLTrench);
+  m_autoChooser.AddOption("BlueCStartLBumpLTrench", m_blueCStartLBumpLTrench);
+  
 }
 
 
@@ -52,9 +70,11 @@ void RobotContainer::ConfigureBindings() {
   frc2::JoystickButton extendHopperButton (&m_operatorController, ControllerConstants::kExtendHopperButton);
   frc2::JoystickButton retractHopperButton (&m_operatorController, ControllerConstants::kRetractHopperButton);
   frc2::JoystickButton stageButton (&m_operatorController, ControllerConstants::kStageButton);
+  frc2::JoystickButton jamButton (&m_operatorController, ControllerConstants::kJamButton);
   frc2::JoystickButton robotRelativeButton (&m_driveController, ControllerConstants::kRobotRelativeButton);
   frc2::JoystickButton fieldRelativeButton (&m_driveController, ControllerConstants::kFieldRelativeButton);
   frc2::JoystickButton resetButton (&m_driveController, ControllerConstants::kResetButton);
+  
 
 
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
@@ -63,15 +83,17 @@ void RobotContainer::ConfigureBindings() {
   fieldRelativeButton.OnTrue(frc2::cmd::RunOnce([&] {m_driveSubsystem.SetFieldRelative();}, {}));
 #ifndef CHASSIS_ONLY
   intakeButton.WhileTrue(SimpleIntake{&m_intakeSubsystem, &m_stagerSubsystem, &m_hopperIntakeSubsystem}.ToPtr());
-  outakeButton.WhileTrue(SimpleOuttake{&m_intakeSubsystem, &m_stagerSubsystem}.ToPtr());
-  chargeButton.WhileTrue(ChargeShooter{&m_shooterSubsystem, &m_intakeSubsystem}.ToPtr());
-  stageButton.WhileTrue(StageShooter{&m_stagerSubsystem}.ToPtr());
-  extendHopperButton.WhileTrue(ExtendHopper{&m_hopperSubsystem}.ToPtr());
+  outakeButton.WhileTrue(SimpleOuttake{&m_intakeSubsystem, &m_stagerSubsystem, &m_hopperIntakeSubsystem}.ToPtr());
+  chargeButton.WhileTrue(ChargeShooter{&m_shooterSubsystem}.ToPtr());
+  stageButton.WhileTrue(StageShooter{&m_stagerSubsystem, &m_intakeSubsystem}.ToPtr());
+  extendHopperButton.WhileTrue(ExtendHopper{&m_hopperSubsystem, &m_operatorController}.ToPtr());
   retractHopperButton.WhileTrue(RetractHopper{&m_hopperSubsystem}.ToPtr());
+  jamButton.WhileTrue(Jam{&m_intakeSubsystem, &m_stagerSubsystem}.ToPtr());
+ 
 #endif
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  return pathplanner::PathPlannerAuto(m_autoChooser.GetSelected()).ToPtr();
+return PathPlannerAuto(m_autoChooser.GetSelected()).ToPtr();
 }

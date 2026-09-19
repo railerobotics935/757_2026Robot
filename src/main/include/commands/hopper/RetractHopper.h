@@ -20,9 +20,11 @@ public:
   explicit RetractHopper(HopperSubsystem* m_hopperSubsystem);
 
   void Initialize() override;
+  void Execute() override;
   void End(bool interrupted) override;
   
 private:
   HopperSubsystem* m_hopper;
+  double m_currentArmAngle;
 };
 #endif

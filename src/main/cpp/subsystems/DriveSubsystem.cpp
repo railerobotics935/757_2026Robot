@@ -95,6 +95,7 @@ DriveSubsystem::DriveSubsystem()
     );
 
   // Initialize shuffleboard communication
+  /*
   auto nt_inst = nt::NetworkTableInstance::GetDefault();
   auto nt_table = nt_inst.GetTable("datatable");
 
@@ -135,6 +136,7 @@ DriveSubsystem::DriveSubsystem()
   nte_ktp = nt_table->GetEntry("Swerve Drive/Turning/ktP");
   nte_kti = nt_table->GetEntry("Swerve Drive/Turning/ktI");
   nte_ktd = nt_table->GetEntry("Swerve Drive/Turning/ktD"); 
+  
 
   nte_ktp.SetDouble(ModuleConstants::kTurningP);
   nte_kti.SetDouble(ModuleConstants::kTurningI);
@@ -166,7 +168,7 @@ DriveSubsystem::DriveSubsystem()
   
   // Send Field to shuffleboard
   frc::Shuffleboard::GetTab("Field").Add(m_field);
-
+  */
   m_robotAngleController.EnableContinuousInput(0, (std::numbers::pi * 2));
 
   m_timer.Restart();
@@ -215,7 +217,7 @@ void DriveSubsystem::Periodic() {
 // This updates the Network table entries
 void DriveSubsystem::UpdateNTE() {
 
-  nte_fl_encoder_position.SetDouble((double)m_frontLeft.GetPosition().angle.Radians());
+/*  nte_fl_encoder_position.SetDouble((double)m_frontLeft.GetPosition().angle.Radians());
   nte_fl_real_angle.SetDouble((double)m_frontLeft.GetState().angle.Radians());
   nte_fl_turn_output.SetDouble((double)m_frontLeft.GetTurnOutput());
 
@@ -242,9 +244,11 @@ void DriveSubsystem::UpdateNTE() {
 
   // Set robot position to shuffleboard field :)
 //  m_field.SetRobotPose(GetOdometryPose());
+*/
 }
 
 void DriveSubsystem::GetTurningPIDParameters() {
+  /*
   double pValue = ktp_sub.Get();
   double iValue = kti_sub.Get();
   double dValue = ktd_sub.Get();
@@ -261,25 +265,11 @@ void DriveSubsystem::GetTurningPIDParameters() {
     m_backLeft.SetTurningPID(m_turning_Kp, m_turning_Ki, m_turning_Kd);
     m_backRight.SetTurningPID(m_turning_Kp, m_turning_Ki, m_turning_Kd);
   }
+    */
 }
 
 void DriveSubsystem::GetDrivingPIDParameters() {
-  double pValue = kdp_sub.Get();
-  double iValue = kdi_sub.Get();
-  double dValue = kdd_sub.Get();
-
-  if ((pValue != m_driving_Kp) ||
-      (iValue != m_driving_Ki) ||
-      (dValue != m_driving_Kd)) {
-    m_driving_Kp = pValue;
-    m_driving_Ki = iValue;
-    m_driving_Kd = dValue;
-
-    m_frontLeft.SetDrivingPID(m_driving_Kp, m_driving_Ki, m_driving_Kd);
-    m_frontRight.SetDrivingPID(m_driving_Kp, m_driving_Ki, m_driving_Kd);
-    m_backLeft.SetDrivingPID(m_driving_Kp, m_driving_Ki, m_driving_Kd);
-    m_backRight.SetDrivingPID(m_driving_Kp, m_driving_Ki, m_driving_Kd);
-  }
+ 
 }
 
 void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
@@ -379,10 +369,10 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
   m_backRight.SetDesiredState(br);
 
   // Network table entries
-  nte_fl_set_angle.SetDouble((double)fl.angle.Radians());
-  nte_fr_set_angle.SetDouble((double)fr.angle.Radians());
-  nte_bl_set_angle.SetDouble((double)bl.angle.Radians());
-  nte_br_set_angle.SetDouble((double)br.angle.Radians());
+  //nte_fl_set_angle.SetDouble((double)fl.angle.Radians());
+  //nte_fr_set_angle.SetDouble((double)fr.angle.Radians());
+  //nte_bl_set_angle.SetDouble((double)bl.angle.Radians());
+  //nte_br_set_angle.SetDouble((double)br.angle.Radians());
 //  nte_fl_set_speed.SetDouble((double)fl.speed);
 //  nte_fr_set_speed.SetDouble((double)fr.speed);
 //  nte_bl_set_speed.SetDouble((double)bl.speed);
@@ -492,10 +482,10 @@ void DriveSubsystem::DriveFacingGoal(units::meters_per_second_t xSpeed,
   m_backRight.SetDesiredState(br);
 
   // Network table entries
-  nte_fl_set_angle.SetDouble((double)fl.angle.Radians());
-  nte_fr_set_angle.SetDouble((double)fr.angle.Radians());
-  nte_bl_set_angle.SetDouble((double)bl.angle.Radians());
-  nte_br_set_angle.SetDouble((double)br.angle.Radians());
+  //nte_fl_set_angle.SetDouble((double)fl.angle.Radians());
+  //nte_fr_set_angle.SetDouble((double)fr.angle.Radians());
+  //nte_bl_set_angle.SetDouble((double)bl.angle.Radians());
+  //nte_br_set_angle.SetDouble((double)br.angle.Radians());
   //nte_fl_set_speed.SetDouble((double)fl.speed);
   //nte_fr_set_speed.SetDouble((double)fr.speed);
   //nte_bl_set_speed.SetDouble((double)bl.speed);

@@ -6,6 +6,7 @@
 #include <frc/XboxController.h>
 
 #include "subsystems/StagerSubsystem.h"
+#include "subsystems/IntakeSubsystem.h"
 
 #ifndef CHASSIS_ONLY
 class StageShooter
@@ -16,12 +17,13 @@ public:
    *
    * @param stager The pointer to the stager subsystem
    */
-  explicit StageShooter(StagerSubsystem* stager);
+  explicit StageShooter(StagerSubsystem* stager, IntakeSubsystem* intake);
 
   void Initialize() override;
   void End(bool interrupted) override;
   
 private:
   StagerSubsystem* m_stager;
+  IntakeSubsystem* m_intake;
 };
 #endif

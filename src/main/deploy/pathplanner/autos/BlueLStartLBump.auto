@@ -1,0 +1,110 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LeftBackToShoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Charge Shooter"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Stop Shooter"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Stop Stager"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LBumpToCFieldL"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Fuel Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CFieldLCollectionBump"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop Fuel Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CFieldToShootLBump"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Charge Shooter"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Blue Left Field Autos",
+  "choreoAuto": false
+}

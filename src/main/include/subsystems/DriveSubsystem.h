@@ -267,13 +267,13 @@ public:
    */
 
 frc::SwerveDriveKinematics<4> m_driveKinematics{
-    frc::Translation2d{units::meter_t(RobotConstants::kWheelBase / 2),units::meter_t(RobotConstants::kWheelWidth/2)},     //Front Left
-    frc::Translation2d{units::meter_t(RobotConstants::kWheelBase / 2),units::meter_t(-RobotConstants::kWheelWidth/2)},    //Front Right
-    frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2),units::meter_t(RobotConstants::kWheelWidth/2)},    //Back Right
-    frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2),units::meter_t(-RobotConstants::kWheelWidth/2)}};  //Back Left
+    frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2),units::meter_t(-RobotConstants::kWheelWidth/2)},     //Front Left
+    frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2),units::meter_t(RobotConstants::kWheelWidth/2)},    //Front Right
+    frc::Translation2d{units::meter_t(RobotConstants::kWheelBase / 2),units::meter_t(-RobotConstants::kWheelWidth/2)},    //Back Right
+    frc::Translation2d{units::meter_t(RobotConstants::kWheelBase / 2),units::meter_t(RobotConstants::kWheelWidth/2)}};  //Back Left
 
 private:
-  nt::NetworkTableEntry nte_fl_set_angle;
+ /* nt::NetworkTableEntry nte_fl_set_angle;
   nt::NetworkTableEntry nte_fr_set_angle;
   nt::NetworkTableEntry nte_bl_set_angle;
   nt::NetworkTableEntry nte_br_set_angle;
@@ -328,7 +328,7 @@ private:
   nt::NetworkTableEntry nte_debugTimeForPoseEstimation;
   nt::NetworkTableEntry nte_debugTimeForAddVistionData;
   nt::NetworkTableEntry nte_numberOfTagsAdded;
-
+  */
   frc::Field2d m_field;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
